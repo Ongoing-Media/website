@@ -1,0 +1,21 @@
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { describe, expect, it } from 'vitest';
+
+// Controleert de echte gebouwde pagina. `npm test` draait eerst de build.
+const html = readFileSync(fileURLToPath(new URL('../dist/index.html', import.meta.url)), 'utf8');
+
+describe('gebouwde homepage', () => {
+  it('heeft de juiste titel', () => {
+    expect(html).toContain('<title>Ongoing Media — coming soon</title>');
+  });
+
+  it('toont de naam en "coming soon"', () => {
+    expect(html).toMatch(/<h1[^>]*>Ongoing Media<\/h1>/);
+    expect(html).toMatch(/<p[^>]*>coming soon<\/p>/);
+  });
+
+  it('is ingesteld op Nederlands', () => {
+    expect(html).toContain('<html lang="nl">');
+  });
+});
