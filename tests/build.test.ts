@@ -14,6 +14,10 @@ describe('gebouwde homepage', () => {
     expect(html).toMatch(/<p[^>]*>coming soon<\/p>/);
   });
 
+  it('noemt ongoingmedia.nl als officieel adres', () => {
+    expect(html).toContain('<link rel="canonical" href="https://ongoingmedia.nl/">');
+  });
+
   it('is ingesteld op Nederlands', () => {
     expect(html).toContain('<html lang="nl">');
   });
