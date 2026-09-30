@@ -1,9 +1,8 @@
 import { readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 
-// Controleert de echte gebouwde pagina. `npm test` draait eerst de build.
-const html = readFileSync(fileURLToPath(new URL('../dist/index.html', import.meta.url)), 'utf8');
+// Controleert de echte gebouwde pagina. De build draait vooraf via tests/globalSetup.ts.
+const html = readFileSync(new URL('../dist/index.html', import.meta.url), 'utf8');
 
 describe('gebouwde homepage', () => {
   it('heeft de juiste titel', () => {

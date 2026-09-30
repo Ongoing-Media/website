@@ -1,12 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { site } from '../config/site';
+
+const tagline = 'coming soon';
 ---
 
-<BaseLayout title="coming soon">
+<BaseLayout title={tagline}>
   <main>
     <h1>{site.name}</h1>
-    <p>coming soon</p>
+    <p>{tagline}</p>
   </main>
 </BaseLayout>
 
