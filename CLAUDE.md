@@ -10,7 +10,7 @@ Deze afspraken gelden bij elke sessie, voor iedereen die aan dit project werkt:
 
 ## Projectafspraken
 
-- **Hosting:** Netlify (project "ongoingmedia"). Staging = de Netlify Deploy Preview die automatisch per pull request wordt gemaakt. Productie = merge naar main. Nooit direct naar main pushen (main is beschermd, alles via pull request).
+- **Hosting:** Netlify (project "ongoingmedia"). De site staat op https://ongoingmedia.nl (DNS bij Mijndomein; e-mail via Google, dus MX- en TXT-regels niet aanpassen). Staging = de Netlify Deploy Preview die automatisch per pull request wordt gemaakt. Productie = merge naar main. Nooit direct naar main pushen (main is beschermd, alles via pull request).
 - **Geen database/Supabase:** het is een statische portfoliosite. Contactformulier later via Netlify Forms.
 - **Video's NOOIT in de repo of op Netlify.** Die komen van Vimeo en worden alleen ingesloten.
 - **Afbeeldingen geoptimaliseerd** (moderne formaten, juiste formaten), want het Netlify free plan heeft een beperkt tegoed.

@@ -2,6 +2,13 @@
   command = "npm run build"
   publish = "dist"
 
+# Stuur het oude Netlify-adres door naar het officiële domein. Deploy Previews hebben een ander adres en blijven werken.
+[[redirects]]
+  from = "https://ongoingmedia.netlify.app/*"
+  to = "https://ongoingmedia.nl/:splat"
+  status = 301
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]
