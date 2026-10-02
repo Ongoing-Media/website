@@ -4,7 +4,7 @@ import instagram from '../assets/icons/instagram.svg?raw';
 import tiktok from '../assets/icons/tiktok.svg?raw';
 import linkedin from '../assets/icons/linkedin.svg?raw';
 
-// Instagram, TikTok en LinkedIn met hun logo; gebruikt in de footer en op de contactpagina.
+// Instagram, TikTok en LinkedIn als klikbare iconen naast elkaar; gebruikt in de footer en op de contactpagina.
 const icons: Record<(typeof site.socials)[number]['id'], string> = { instagram, tiktok, linkedin };
 
 interface Props {
@@ -18,10 +18,8 @@ const { class: className } = Astro.props;
   {
     site.socials.map((social) => (
       <li>
-        <a href={social.url} rel="noopener noreferrer" target="_blank">
+        <a href={social.url} rel="noopener noreferrer" target="_blank" aria-label={`${site.name} on ${social.label}`}>
           <span class="icon" aria-hidden="true" set:html={icons[social.id]} />
-          <span class="visually-hidden">{social.label}: </span>
-          {social.handle}
         </a>
       </li>
     ))
@@ -30,15 +28,23 @@ const { class: className } = Astro.props;
 
 <style>
   .socials {
-    display: grid;
-    gap: 0.35rem;
+    display: flex;
+    gap: 0.5rem;
   }
 
+  /* Ruim klikvlak (min. 44px) rond een klein icoon, ook op mobiel goed te raken. */
   a {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6em;
-    text-decoration: none;
+    display: inline-grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-left: -0.7rem;
+    border-radius: 50%;
+    transition: color 0.2s var(--ease);
+  }
+
+  li + li a {
+    margin-left: 0;
   }
 
   a:hover {
@@ -47,8 +53,8 @@ const { class: className } = Astro.props;
 
   .icon {
     display: inline-flex;
-    width: 1.05em;
-    height: 1.05em;
+    width: 1.35rem;
+    height: 1.35rem;
   }
 
   .icon :global(svg) {

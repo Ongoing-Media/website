@@ -184,9 +184,16 @@ a {
   margin-top: 1em;
 }
 
-.prose ul {
+.prose ul,
+.prose ol {
+  display: grid;
+  gap: 0.6em;
   margin: 0;
-  padding-left: 1.2em;
+  padding-left: 1.4em;
+}
+
+.prose ol[type='a'] {
+  list-style-type: lower-alpha;
 }
 
 @media (prefers-reduced-motion: reduce) {

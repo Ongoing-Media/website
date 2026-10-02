@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Section from '../components/Section.astro';
+import { Content } from '../data/terms.md';
+---
+
+<BaseLayout title="Terms & conditions" description="The general terms and conditions of Ongoing Media." headerTone="white">
+  <PageHero tone="white" eyebrow="terms & conditions" bold="general terms" italic="and conditions" />
+
+  <Section tone="white" top="none">
+    <div class="container prose terms">
+      <Content />
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .terms :global(h2) {
+    font-size: var(--text-xl);
+    letter-spacing: -0.03em;
+    margin-top: 2.5rem;
+  }
+
+  .terms :global(h3) {
+    font-size: var(--text-lg);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-top: 1rem;
+  }
+</style>

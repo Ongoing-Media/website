@@ -6,6 +6,7 @@ export const routes = {
   contact: '/contact/',
   contactThanks: '/contact/thanks/',
   privacy: '/privacy/',
+  terms: '/terms/',
 } as const;
 
 export interface NavItem {
@@ -27,4 +28,5 @@ export const indexableRoutes: readonly string[] = [
   routes.about,
   routes.contact,
   routes.privacy,
+  routes.terms,
 ];

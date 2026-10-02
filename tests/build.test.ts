@@ -13,6 +13,7 @@ const pages = {
   contact: 'contact/index.html',
   thanks: 'contact/thanks/index.html',
   privacy: 'privacy/index.html',
+  terms: 'terms/index.html',
   notFound: '404.html',
 };
 
@@ -211,6 +212,10 @@ describe('about', () => {
     expect(h1).toContain('<rect class="cursor"');
   });
 
+  it('heeft als titel "Who we are"', () => {
+    expect(html).toContain('<title>Who we are — Ongoing Media</title>');
+  });
+
   it('noemt "Ongoing Media" (in groen, vet) in het oprichtersverhaal', () => {
     expect(html).toMatch(/what <strong[^>]*>Ongoing Media<\/strong> is built on/);
   });
@@ -234,14 +239,49 @@ describe("let's talk", () => {
   });
 });
 
+describe('footer', () => {
+  const html = page(pages.home);
+
+  it('heeft kopjes say hi, address en socials (en geen "visit")', () => {
+    for (const label of ['say hi', 'address', 'socials']) expect(html).toMatch(new RegExp(`class="label"[^>]*>${label}<`));
+    expect(html).not.toMatch(/class="label"[^>]*>visit</);
+  });
+
+  it('linkt naar privacy en terms & conditions', () => {
+    expect(html).toMatch(/<a href="\/privacy\/"[^>]*>privacy<\/a>/);
+    expect(html).toMatch(/<a href="\/terms\/"[^>]*>terms &amp; conditions<\/a>/);
+  });
+});
+
+describe('terms & conditions', () => {
+  const html = page(pages.terms);
+
+  it('bevat alle hoofdstukken van de algemene voorwaarden', () => {
+    for (const chapter of ['A. General Provisions', 'B. Chapter Talent', 'C. Chapter Media', 'D. Chapter Hosting', 'E. Chapter Software Development'])
+      expect(html).toContain(chapter);
+    expect(html).toContain('Article 15. Applicable law and competent court');
+    expect(html).toContain('non-sublicensable right to use the Software.');
+  });
+});
+
+describe('privacy', () => {
+  it('noemt Adobe Fonts en de social-media-alinea niet meer', () => {
+    const html = page(pages.privacy);
+    expect(html).not.toContain('Adobe Fonts');
+    expect(html).not.toContain('Social media</h2>');
+  });
+});
+
 describe('contact', () => {
   it('heeft geen foto en toont de socials met hun logo', () => {
     const html = page(pages.contact);
     const details = html.slice(html.indexOf('aria-label="Contact details"'), html.indexOf('</aside>'));
     expect(details).not.toContain('<picture');
     expect(details).toMatch(/class="label"[^>]*>socials</);
-    for (const network of ['Instagram', 'TikTok', 'LinkedIn']) expect(details).toContain(`${network}: </span>`);
+    // Alleen iconen (geen gebruikersnamen); de link zelf heeft een naam voor schermlezers.
+    for (const network of ['Instagram', 'TikTok', 'LinkedIn']) expect(details).toContain(`aria-label="Ongoing Media on ${network}"`);
     expect(details.match(/<svg/g)).toHaveLength(3);
+    expect(details).not.toContain('@ongoing.nl');
   });
 
   it('toont het formulier bovenaan, vóór de contactgegevens', () => {
