@@ -9,7 +9,7 @@ export interface Pillar {
 export const pillars: readonly Pillar[] = [
   {
     title: 'strategy',
-    aside: 'with the algorithm',
+    aside: 'consumer & platform insights',
     summary:
       'Every success starts with the right strategy. We don’t work against the algorithm, we work with it. Solid research into platform and consumer behavior takes the guessing game out of every campaign.',
     services: [
@@ -37,7 +37,7 @@ export const pillars: readonly Pillar[] = [
   },
   {
     title: 'data',
-    aside: 'full transparency',
+    aside: 'measure to learn',
     summary:
       'We work across all channels with an always-on organic, earned and paid approach that reaches audiences across the full funnel. KPIs are based on industry benchmarks, creator data and proven results.',
     services: ['Data & research', 'Consumer insights', 'Audience insights', 'Reporting & analytics', 'Live dashboards'],

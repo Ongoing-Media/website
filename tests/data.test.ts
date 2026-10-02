@@ -10,6 +10,14 @@ describe('diensten', () => {
     expect(allText).not.toContain('media division');
   });
 
+  it('heeft de juiste ondertitels bij de pijlers', () => {
+    expect(pillars.map((pillar) => pillar.aside)).toEqual([
+      'consumer & platform insights',
+      'people can’t scroll past',
+      'measure to learn',
+    ]);
+  });
+
   it('heeft earned, owned en paid en vier stappen werkwijze', () => {
     expect(channels.map((channel) => channel.title)).toEqual(['earned', 'owned', 'paid']);
     expect(processSteps).toHaveLength(4);
