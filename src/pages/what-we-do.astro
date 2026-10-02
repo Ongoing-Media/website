@@ -5,48 +5,34 @@ import Section from '../components/Section.astro';
 import SplitHeading from '../components/SplitHeading.astro';
 import PillarGrid from '../components/PillarGrid.astro';
 import OnRepeat from '../components/OnRepeat.astro';
-import Photo from '../components/Photo.astro';
 import CallToAction from '../components/CallToAction.astro';
-import { channels, pillars, processSteps } from '../data/services';
-
-import blurPortrait from '../assets/images/blur-portrait.jpg';
-
-const dataHighlight = pillars.find((pillar) => pillar.highlight)?.highlight;
+import { channels, processSteps } from '../data/services';
 ---
 
 <BaseLayout
   title="What we do"
   description="Strategy, campaigns and data, on repeat. Ongoing Media develops and runs full-scale social media and influencer marketing campaigns."
-  headerTone="white"
+  headerTone="cream"
 >
   <PageHero
-    tone="white"
+    tone="cream"
     eyebrow="what we do"
     bold="we are your"
     italic="partner in"
     intro="A seamless collaboration under one roof: from the first insight to the final report."
   />
 
-  <div class="repeat" data-tone="white">
+  <div class="repeat" data-tone="cream">
     <OnRepeat />
   </div>
 
-  <Section tone="white" labelledby="pillars-heading">
+  <Section tone="cream" labelledby="pillars-heading">
     <div class="container">
       <h2 id="pillars-heading" class="visually-hidden">Our services</h2>
       <PillarGrid detailed />
     </div>
   </Section>
 
-  {
-    dataHighlight && (
-      <Section tone="plum">
-        <div class="container highlight">
-          <p>{dataHighlight}</p>
-        </div>
-      </Section>
-    )
-  }
 
   <Section tone="brown" labelledby="channels-heading">
     <div class="container channels-grid">
@@ -67,20 +53,8 @@ const dataHighlight = pillars.find((pillar) => pillar.highlight)?.highlight;
     </div>
   </Section>
 
-  <Section tone="cream" labelledby="partners-heading">
-    <div class="container partners">
-      <div class="partners-text">
-        <SplitHeading id="partners-heading" size="xl" bold="unfortunately," italic="you just can’t be the best at everything" />
-        <p class="lead">
-          That’s why, for content creation and event management, we work with trusted partners and hand-picked
-          professionals. So you can hand over the full project under one roof, without compromising on quality.
-        </p>
-      </div>
-      <Photo src={blurPortrait} alt="" sizes="(min-width: 60rem) 30vw, 80vw" class="photo partners-photo" />
-    </div>
-  </Section>
 
-  <Section tone="white" labelledby="process-heading">
+  <Section tone="cream" labelledby="process-heading">
     <div class="container process">
       <SplitHeading id="process-heading" bold="our way" italic="of working" />
       <ol class="steps">
@@ -105,18 +79,6 @@ const dataHighlight = pillars.find((pillar) => pillar.highlight)?.highlight;
     padding-bottom: 1rem;
   }
 
-  .highlight p {
-    max-width: 22ch;
-    margin-left: auto;
-    font-size: var(--text-2xl);
-    font-style: italic;
-    font-weight: 300;
-    line-height: 1;
-    letter-spacing: -0.04em;
-    text-align: right;
-    color: var(--accent);
-    text-wrap: balance;
-  }
 
   .channels-grid {
     display: grid;
@@ -148,25 +110,6 @@ const dataHighlight = pillars.find((pillar) => pillar.highlight)?.highlight;
     color: var(--accent);
   }
 
-  .partners {
-    display: grid;
-    gap: 3rem;
-    align-items: center;
-  }
-
-  .partners-text {
-    display: grid;
-    gap: 1.75rem;
-  }
-
-  .partners :global(.partners-photo) {
-    width: min(100%, 26rem);
-    justify-self: end;
-  }
-
-  .partners :global(.partners-photo img) {
-    width: 100%;
-  }
 
   .process {
     display: grid;
@@ -208,10 +151,6 @@ const dataHighlight = pillars.find((pillar) => pillar.highlight)?.highlight;
   @media (min-width: 60rem) {
     .channels-grid {
       grid-template-columns: 1fr 1fr;
-    }
-
-    .partners {
-      grid-template-columns: 1.4fr 1fr;
     }
 
     .steps {

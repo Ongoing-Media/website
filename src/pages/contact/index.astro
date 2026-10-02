@@ -1,9 +1,13 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PageHero from '../../components/PageHero.astro';
 import Section from '../../components/Section.astro';
+import SplitHeading from '../../components/SplitHeading.astro';
 import ContactForm from '../../components/ContactForm.astro';
+import SocialLinks from '../../components/SocialLinks.astro';
+import Photo from '../../components/Photo.astro';
 import { site } from '../../config/site';
+
+import steelRoom from '../../assets/images/steel-room.jpg';
 ---
 
 <BaseLayout
@@ -11,12 +15,15 @@ import { site } from '../../config/site';
   description="Got a brand, a briefing or just an idea? Get in touch with Ongoing Media in Amsterdam."
   headerTone="plum"
 >
-  <PageHero tone="plum" eyebrow="contact" bold="let’s" italic="talk" intro="Got a brand, a briefing or just an idea? Tell us what is going on." />
+  <Section tone="plum" top="small">
+    <div class="container layout">
+      <div class="intro">
+        <SplitHeading level={1} bold="let’s talk" italic="what is going on?" stacked />
+        <p class="lead">Got a brand, a briefing or just an idea? Send us a message and we’ll get back to you soon.</p>
+      </div>
 
-  <Section tone="plum" continued>
-    <div class="container contact-grid">
-      <div class="form-wrap">
-        <h2 class="visually-hidden">Send us a message</h2>
+      <div class="form-card" data-tone="cream">
+        <h2 class="form-title">send us a message</h2>
         <ContactForm />
       </div>
 
@@ -29,25 +36,51 @@ import { site } from '../../config/site';
           <h2>visit</h2>
           <address>
             {site.address.street}<br />
-            {site.address.postalCode} {site.address.city}<br />
-            {site.address.country}
+            {site.address.postalCode} {site.address.city}
           </address>
         </div>
+        <div>
+          <h2>follow</h2>
+          <SocialLinks />
+        </div>
+        <Photo src={steelRoom} alt="" sizes="(min-width: 60rem) 14rem, 50vw" class="photo detail-photo" />
       </aside>
     </div>
   </Section>
 </BaseLayout>
 
 <style>
-  .contact-grid {
+  .layout {
     display: grid;
-    gap: 3.5rem;
+    gap: 2.5rem;
+    grid-template-areas:
+      'intro'
+      'form'
+      'details';
+  }
+
+  .intro {
+    grid-area: intro;
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .form-card {
+    grid-area: form;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    border-radius: 1.5rem;
+  }
+
+  .form-title {
+    font-size: var(--text-xl);
+    margin-bottom: 1.5rem;
   }
 
   .details {
+    grid-area: details;
     display: grid;
     align-content: start;
-    gap: 2rem;
+    gap: 1.75rem;
   }
 
   .details h2 {
@@ -55,24 +88,34 @@ import { site } from '../../config/site';
     font-weight: 400;
     letter-spacing: 0;
     color: var(--line);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
   }
 
   .details a {
-    font-size: var(--text-lg);
     text-underline-offset: 0.2em;
   }
 
   address {
     font-style: normal;
-    font-size: var(--text-lg);
-    line-height: 1.4;
+    line-height: 1.5;
+  }
+
+  .details :global(.detail-photo) {
+    width: min(60%, 14rem);
+  }
+
+  .details :global(.detail-photo img) {
+    width: 100%;
   }
 
   @media (min-width: 60rem) {
-    .contact-grid {
-      grid-template-columns: 1.4fr 1fr;
-      gap: 6rem;
+    .layout {
+      grid-template-columns: 1fr 1.25fr;
+      grid-template-areas:
+        'intro form'
+        'details form';
+      column-gap: clamp(3rem, 6vw, 6rem);
+      align-items: start;
     }
   }
 </style>

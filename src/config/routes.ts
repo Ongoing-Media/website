@@ -2,16 +2,11 @@
 export const routes = {
   home: '/',
   whatWeDo: '/what-we-do/',
-  work: '/work/',
   about: '/about/',
   contact: '/contact/',
   contactThanks: '/contact/thanks/',
   privacy: '/privacy/',
 } as const;
-
-export function caseRoute(slug: string): string {
-  return `${routes.work}${slug}/`;
-}
 
 export interface NavItem {
   label: string;
@@ -19,8 +14,8 @@ export interface NavItem {
 }
 
 export const mainNav: readonly NavItem[] = [
+  { label: 'home', href: routes.home },
   { label: 'what we do', href: routes.whatWeDo },
-  { label: 'work', href: routes.work },
   { label: 'about', href: routes.about },
   { label: 'contact', href: routes.contact },
 ];
@@ -29,7 +24,6 @@ export const mainNav: readonly NavItem[] = [
 export const indexableRoutes: readonly string[] = [
   routes.home,
   routes.whatWeDo,
-  routes.work,
   routes.about,
   routes.contact,
   routes.privacy,

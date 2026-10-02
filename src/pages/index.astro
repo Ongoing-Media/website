@@ -6,9 +6,7 @@ import ButtonLink from '../components/ButtonLink.astro';
 import Photo from '../components/Photo.astro';
 import OnRepeat from '../components/OnRepeat.astro';
 import PillarGrid from '../components/PillarGrid.astro';
-import CaseCard from '../components/CaseCard.astro';
 import CallToAction from '../components/CallToAction.astro';
-import { cases } from '../data/cases';
 import { routes } from '../config/routes';
 
 import walkingBlur from '../assets/images/walking-blur.jpg';
@@ -16,21 +14,18 @@ import steelRoom from '../assets/images/steel-room.jpg';
 import chairLaptop from '../assets/images/chair-laptop.jpg';
 import studioTable from '../assets/images/studio-table.jpg';
 import streetMotion from '../assets/images/street-motion.jpg';
-
-const featuredCases = cases.slice(0, 3);
 ---
 
 <BaseLayout title="Influencer marketing agency in Amsterdam" headerTone="plum">
-  <Section tone="plum" class="hero" labelledby="hero-heading">
+  <Section tone="plum" top="small" class="hero" labelledby="hero-heading">
     <div class="container hero-grid">
       <div class="hero-text">
-        <p class="eyebrow">influencer marketing agency · amsterdam</p>
         <h1 id="hero-heading" class="hero-heading">
           <span>we turn behavior into strategy,</span>
           <span>creators into momentum,</span>
           <span class="soft">and attention into impact.</span>
         </h1>
-        <ButtonLink href={routes.work}>see our work</ButtonLink>
+        <ButtonLink href={routes.contact}>let’s talk</ButtonLink>
       </div>
       <div class="hero-photos">
         <Photo src={steelRoom} alt="" sizes="(min-width: 60rem) 22vw, 45vw" priority class="photo photo-a" />
@@ -42,7 +37,7 @@ const featuredCases = cases.slice(0, 3);
   <Section tone="white" labelledby="about-heading">
     <div class="container about-grid">
       <div class="about-text">
-        <SplitHeading id="about-heading" bold="hi! we are" italic="ongoing media" stacked />
+        <SplitHeading id="about-heading" size="xl" bold="hi! we are" italic="ongoing media" stacked />
         <p class="lead">
           An Amsterdam-based influencer marketing agency. We deliver content that earns its place in the feed, and its way
           into the conversation offline.
@@ -75,22 +70,12 @@ const featuredCases = cases.slice(0, 3);
     </div>
   </section>
 
-  <Section tone="brown" labelledby="work-heading">
-    <div class="container stack">
-      <SplitHeading id="work-heading" bold="our" italic="work" />
-      <div class="cases">
-        {featuredCases.map((item) => <CaseCard item={item} />)}
-      </div>
-      <ButtonLink href={routes.work}>all work</ButtonLink>
-    </div>
-  </Section>
 
   <CallToAction />
 </BaseLayout>
 
 <style>
   .hero {
-    padding-block: clamp(2rem, 6vw, 5rem) clamp(4rem, 10vw, 8rem);
     overflow: hidden;
   }
 
@@ -106,7 +91,7 @@ const featuredCases = cases.slice(0, 3);
   }
 
   .hero-heading {
-    font-size: clamp(2.6rem, 1rem + 7vw, 7.5rem);
+    font-size: clamp(2.2rem, 1.1rem + 4vw, 4.75rem);
     color: var(--accent);
   }
 
@@ -209,16 +194,7 @@ const featuredCases = cases.slice(0, 3);
     max-width: 10ch;
   }
 
-  .cases {
-    display: grid;
-    gap: 2.5rem;
-  }
 
-  @media (min-width: 40rem) {
-    .cases {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
 
   @media (min-width: 60rem) {
     .hero-grid {
@@ -238,10 +214,6 @@ const featuredCases = cases.slice(0, 3);
 
     .about-grid :global(.about-b) {
       width: 100%;
-    }
-
-    .cases {
-      grid-template-columns: repeat(3, 1fr);
     }
   }
 </style>

@@ -6,14 +6,14 @@ interface Props {
   id?: string;
   class?: string;
   labelledby?: string;
-  /** Sluit direct aan op het blok erboven (geen ruimte aan de bovenkant). */
-  continued?: boolean;
+  /** Ruimte aan de bovenkant: `small` direct onder de menubalk, `none` als vervolg op het blok erboven. */
+  top?: 'default' | 'small' | 'none';
 }
 
-const { tone = 'white', id, class: className, labelledby, continued = false } = Astro.props;
+const { tone = 'white', id, class: className, labelledby, top = 'default' } = Astro.props;
 ---
 
-<section id={id} data-tone={tone} aria-labelledby={labelledby} class:list={['section', { continued }, className]}>
+<section id={id} data-tone={tone} aria-labelledby={labelledby} class:list={['section', `top-${top}`, className]}>
   <slot />
 </section>
 
@@ -23,7 +23,11 @@ const { tone = 'white', id, class: className, labelledby, continued = false } = 
     padding-block: var(--section-space);
   }
 
-  .continued {
+  .top-small {
+    padding-top: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .top-none {
     padding-top: 0;
   }
 </style>

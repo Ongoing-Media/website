@@ -4,7 +4,6 @@ export interface Pillar {
   /** Korte, schuingedrukte toevoeging naast de titel. */
   aside: string;
   summary: string;
-  highlight?: string;
   services: readonly string[];
 }
 
@@ -45,7 +44,6 @@ export const pillars: readonly Pillar[] = [
     aside: 'full transparency',
     summary:
       'We work across all channels with an always-on organic, earned and paid approach that reaches audiences across the full funnel. KPIs are based on industry benchmarks, creator data and proven results.',
-    highlight: 'we build live dashboards as part of our collaborations, for full transparency and campaign optimization.',
     services: ['Data & research', 'Consumer insights', 'Audience insights', 'Reporting & analytics', 'Live dashboards'],
   },
 ];

@@ -1,7 +1,6 @@
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { cases } from '../src/data/cases';
 
 // Controleert de echte gebouwde site. De build draait vooraf via tests/globalSetup.ts.
 const dist = new URL('../dist/', import.meta.url).pathname;
@@ -10,7 +9,6 @@ const page = (path: string) => readFileSync(join(dist, path), 'utf8');
 const pages = {
   home: 'index.html',
   whatWeDo: 'what-we-do/index.html',
-  work: 'work/index.html',
   about: 'about/index.html',
   contact: 'contact/index.html',
   thanks: 'contact/thanks/index.html',
@@ -72,13 +70,17 @@ describe('homepage', () => {
   it('gebruikt de officiële logo’s met webveilige namen', () => {
     expect(html).toContain('src="/brand/logo-green.svg"');
     expect(html).toContain('src="/brand/logo-white.svg"');
-    expect(page(pages.about)).toContain('src="/brand/logo-black.svg"');
+    expect(page(pages.whatWeDo)).toContain('src="/brand/logo-black.svg"');
   });
 
   it('toont foto’s als responsive WebP', () => {
     expect(html).toMatch(/<source[^>]+type="image\/webp"/);
     expect(html).toMatch(/srcset="[^"]+ 360w/);
     expect(html).toContain('loading="lazy"');
+  });
+
+  it('heeft geen "influencer marketing agency · amsterdam" boven de kop', () => {
+    expect(html).not.toContain('influencer marketing agency · amsterdam');
   });
 
   it('noemt geen creators of talentmanagement', () => {
@@ -112,12 +114,9 @@ describe('contactformulier', () => {
 });
 
 describe('zoekmachines', () => {
-  it('bedankpagina, 404 en voorbeeldcases staan op noindex', () => {
+  it('bedankpagina en 404 staan op noindex', () => {
     expect(page(pages.thanks)).toContain('<meta name="robots" content="noindex">');
     expect(page(pages.notFound)).toContain('<meta name="robots" content="noindex">');
-    for (const item of cases.filter((c) => c.placeholder)) {
-      expect(page(`work/${item.slug}/index.html`)).toContain('<meta name="robots" content="noindex">');
-    }
   });
 
   it('gewone pagina’s staan niet op noindex', () => {
@@ -130,10 +129,54 @@ describe('zoekmachines', () => {
   });
 });
 
-describe('cases', () => {
-  it.each(cases.map((item) => [item.slug]))('%s heeft een eigen pagina met een videoplek', (slug) => {
-    const html = page(`work/${slug}/index.html`);
-    expect(html).toMatch(/video coming soon|data-vimeo-embed="https:\/\/player\.vimeo\.com\/video\//);
+describe('menu en footer', () => {
+  it.each(Object.entries(pages))('%s: menu met home, footer met Instagram, TikTok en het juiste adres', (_, path) => {
+    const html = page(path);
+    expect(html).toMatch(/<a href="\/"[^>]*>home<\/a>/);
+    expect(html).toContain('href="https://www.instagram.com/ongoing.nl/"');
+    expect(html).toContain('href="https://www.tiktok.com/@ongoingmedia.nl"');
+    expect(html).toContain('Herengracht 501');
+    expect(html).toContain('1017 BV Amsterdam');
+    expect(html).not.toContain('Keizersgracht');
+  });
+
+  it('heeft (nog) geen work-pagina of links ernaartoe', () => {
+    expect(existsSync(join(dist, 'work'))).toBe(false);
+    for (const path of Object.values(pages)) expect(page(path), path).not.toContain('href="/work/');
+  });
+});
+
+describe('what we do', () => {
+  const html = page(pages.whatWeDo);
+
+  it('heeft geen witte achtergrond maar crème', () => {
+    expect(html).not.toContain('data-tone="white"');
+    expect(html).toContain('data-tone="cream"');
+  });
+
+  it('heeft niet meer de dashboard-zin en de sectie "unfortunately"', () => {
+    expect(html).not.toContain('we build live dashboards');
+    expect(html).not.toContain('unfortunately');
+  });
+});
+
+describe('about', () => {
+  const html = page(pages.about);
+
+  it('toont "hi! we are" met het oranje logo', () => {
+    expect(html).toMatch(/<h1[^>]*>.*hi! we are.*src="\/brand\/logo-orange\.svg".*<\/h1>/s);
+  });
+
+  it('vertelt het verhaal van de oprichters', () => {
+    for (const name of ['Chantal Janzen', 'Marco Geerats', 'Michelle de Vroed', '&amp;C']) expect(html).toContain(name);
+  });
+});
+
+describe('contact', () => {
+  it('toont het formulier bovenaan, vóór de contactgegevens', () => {
+    const html = page(pages.contact);
+    expect(html.indexOf('<form')).toBeGreaterThan(0);
+    expect(html.indexOf('<form')).toBeLessThan(html.indexOf('aria-label="Contact details"'));
   });
 });
 

@@ -14,7 +14,7 @@ interface Props {
 const { tone, bold, italic, eyebrow, intro } = Astro.props;
 ---
 
-<Section tone={tone} class="page-hero">
+<Section tone={tone} top="small">
   <div class="container hero">
     {eyebrow && <p class="eyebrow">{eyebrow}</p>}
     <SplitHeading level={1} size="3xl" bold={bold} italic={italic} stacked />
@@ -24,10 +24,6 @@ const { tone, bold, italic, eyebrow, intro } = Astro.props;
 </Section>
 
 <style>
-  .page-hero {
-    padding-block: clamp(3rem, 9vw, 7rem) clamp(4rem, 10vw, 8rem);
-  }
-
   .hero {
     display: grid;
     gap: clamp(1.5rem, 4vw, 2.5rem);

@@ -1,6 +1,7 @@
 ---
 import Logo from './Logo.astro';
 import Brandmark from './Brandmark.astro';
+import SocialLinks from './SocialLinks.astro';
 import { site } from '../config/site';
 import { mainNav, routes } from '../config/routes';
 
@@ -20,6 +21,8 @@ const year = new Date().getFullYear();
       <span>{site.address.postalCode} {site.address.city}</span>
       <span class="label">say hi</span>
       <a href={`mailto:${site.email}`}>{site.email}</a>
+      <span class="label">follow</span>
+      <SocialLinks />
     </address>
 
     <nav aria-label="Footer">

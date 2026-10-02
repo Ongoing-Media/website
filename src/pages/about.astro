@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from '../components/PageHero.astro';
 import Section from '../components/Section.astro';
 import SplitHeading from '../components/SplitHeading.astro';
+import Logo from '../components/Logo.astro';
 import Photo from '../components/Photo.astro';
 import CallToAction from '../components/CallToAction.astro';
 import { site } from '../config/site';
@@ -10,72 +10,68 @@ import { site } from '../config/site';
 import steelRoom from '../assets/images/steel-room.jpg';
 import walkingBlur from '../assets/images/walking-blur.jpg';
 import chairLaptop from '../assets/images/chair-laptop.jpg';
-
-const worlds = [
-  {
-    title: 'traditional media',
-    text: 'Knowing how stories are told, how attention is earned and how an audience is built when there’s no algorithm to hide behind.',
-  },
-  {
-    title: 'social media',
-    text: 'Native to the feed, and fluent in what moves people before it becomes a trend report.',
-  },
-];
 ---
 
 <BaseLayout
   title="About us"
-  description="Ongoing Media is an Amsterdam-based influencer marketing agency, built out of two worlds: traditional media and social media."
-  headerTone="cream"
+  description="Ongoing Media was founded by Chantal Janzen and Marco Geerats, together with Michelle de Vroed: the bridge between the media that shaped a generation and the media shaping the next one."
+  headerTone="brown"
 >
-  <PageHero
-    tone="cream"
-    eyebrow="about us"
-    bold="hi! we are"
-    italic="ongoing media"
-    intro="An Amsterdam-based influencer marketing agency turning behavior into strategy, creators into momentum, and attention into impact."
-  />
+  <Section tone="brown" top="small" labelledby="about-title">
+    <div class="container hero">
+      <h1 id="about-title">
+        <span class="hello">hi! we are</span>
+        <Logo variant="orange" width={640} class="hero-logo" />
+      </h1>
+      <p class="lead">
+        An Amsterdam-based influencer marketing agency turning behavior into strategy, creators into momentum, and attention
+        into impact.
+      </p>
+    </div>
+  </Section>
 
   <Section tone="white" labelledby="grown-up-heading">
     <div class="container grown-up">
       <div class="prose">
         <SplitHeading id="grown-up-heading" size="xl" bold="the influencer industry" italic="has grown up" />
-        <p class="lead">
-          People have gotten too good at spotting ads. The moment something feels like marketing, they’re already
-          scrolling past it.
-        </p>
         <p>
-          Marketing has grown up, so you need a partner that helps you find a new road around this. Content that earns its
-          place in the feed, and its way into the conversation offline.
+          People have gotten too good at spotting ads. The moment something feels like marketing, they’re already scrolling
+          past it. Marketing has grown up, so you need a partner that helps you find a new road around this: content that
+          earns its place in the feed, and its way into the conversation offline.
         </p>
       </div>
       <div class="photos">
-        <Photo src={steelRoom} alt="" sizes="(min-width: 60rem) 20vw, 45vw" class="photo" />
-        <Photo src={walkingBlur} alt="" sizes="(min-width: 60rem) 18vw, 40vw" class="photo offset" />
+        <Photo src={steelRoom} alt="" sizes="(min-width: 60rem) 18vw, 45vw" class="photo" />
+        <Photo src={walkingBlur} alt="" sizes="(min-width: 60rem) 16vw, 40vw" class="photo offset" />
       </div>
     </div>
   </Section>
 
-  <Section tone="plum" labelledby="worlds-heading">
-    <div class="container worlds">
-      <SplitHeading id="worlds-heading" bold="built out of" italic="two worlds" stacked />
-      <ul>
-        {
-          worlds.map((world) => (
-            <li>
-              <h3>{world.title}</h3>
-              <p>{world.text}</p>
-            </li>
-          ))
-        }
-      </ul>
-      <p class="lead bridge">
-        Together they form the bridge between the media that shaped a generation, and the media that’s shaping the next one.
-      </p>
+  <Section tone="plum" labelledby="story-heading">
+    <div class="container story">
+      <SplitHeading id="story-heading" size="xl" bold="built out of" italic="two worlds" stacked />
+      <div class="prose story-text">
+        <p>
+          Ongoing Media was founded by <strong>Chantal Janzen</strong> and <strong>Marco Geerats</strong>. Together they
+          bring years of experience in traditional media: they know how stories are told, how attention is earned, and how
+          an audience is built when there’s no algorithm to hide behind.
+        </p>
+        <p>
+          <strong>Michelle de Vroed</strong> represents the new generation. Three years in traditional media at &amp;C,
+          Chantal Janzen’s media brand, were followed by three years of agency experience, with an expertise in creative and
+          strategic influencer marketing campaigns. Native to the feed, and fluent in what moves people before it becomes a
+          trend report.
+        </p>
+        <p>
+          That combination is what Ongoing is built on: the craft of the media that shaped a generation, and the instinct
+          for the media that’s shaping the next one.
+        </p>
+      </div>
+      <p class="bridge">we bridge the media of today with the media of tomorrow.</p>
     </div>
   </Section>
 
-  <Section tone="brown" labelledby="beyond-heading">
+  <Section tone="cream" labelledby="beyond-heading">
     <div class="container beyond">
       <div class="prose">
         <SplitHeading id="beyond-heading" size="xl" bold="we move" italic="beyond the feed" />
@@ -87,11 +83,9 @@ const worlds = [
           For content creation and event management we work with trusted partners and hand-picked professionals, so
           everything comes together under one roof.
         </p>
-        <p class="based">
-          Based at {site.address.street}, {site.address.city}.
-        </p>
+        <p class="based">Based at {site.address.street}, {site.address.city}.</p>
       </div>
-      <Photo src={chairLaptop} alt="A laptop on a white chair in a studio" sizes="(min-width: 60rem) 28vw, 80vw" class="photo beyond-photo" />
+      <Photo src={chairLaptop} alt="A laptop on a white chair in a studio" sizes="(min-width: 60rem) 24vw, 80vw" class="photo beyond-photo" />
     </div>
   </Section>
 
@@ -99,6 +93,26 @@ const worlds = [
 </BaseLayout>
 
 <style>
+  .hero {
+    display: grid;
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  h1 {
+    display: grid;
+    gap: clamp(0.75rem, 2vw, 1.25rem);
+  }
+
+  .hello {
+    font-size: var(--text-2xl);
+    color: var(--color-white);
+  }
+
+  h1 :global(.hero-logo) {
+    width: min(100%, 40rem);
+    height: auto;
+  }
+
   .grown-up,
   .beyond {
     display: grid;
@@ -111,6 +125,7 @@ const worlds = [
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
     align-items: start;
+    max-width: 28rem;
   }
 
   .photos :global(.offset) {
@@ -122,33 +137,20 @@ const worlds = [
     height: auto;
   }
 
-  .worlds {
+  .story {
     display: grid;
-    gap: clamp(2.5rem, 6vw, 4rem);
+    gap: clamp(2rem, 5vw, 3rem);
   }
 
-  .worlds ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: 2rem;
-  }
-
-  .worlds li {
-    display: grid;
-    gap: 0.6rem;
-    padding-top: 1rem;
-    border-top: 1.5px solid var(--line);
-  }
-
-  .worlds h3 {
-    font-size: var(--text-xl);
+  .story-text strong {
+    font-weight: 700;
     color: var(--accent);
   }
 
   .bridge {
-    max-width: 30ch;
+    max-width: 24ch;
+    padding-top: 1.25rem;
+    border-top: 1.5px solid var(--line);
     font-style: italic;
     font-weight: 300;
     font-size: var(--text-xl);
@@ -162,20 +164,27 @@ const worlds = [
   }
 
   .beyond :global(.beyond-photo) {
-    width: min(100%, 24rem);
+    width: min(100%, 22rem);
     justify-self: end;
-  }
-
-  @media (min-width: 48rem) {
-    .worlds ul {
-      grid-template-columns: 1fr 1fr;
-    }
   }
 
   @media (min-width: 60rem) {
     .grown-up,
     .beyond {
       grid-template-columns: 1.3fr 1fr;
+    }
+
+    .photos {
+      justify-self: end;
+    }
+
+    .story {
+      grid-template-columns: 1fr 1.4fr;
+      align-items: start;
+    }
+
+    .bridge {
+      grid-column: 2;
     }
   }
 </style>

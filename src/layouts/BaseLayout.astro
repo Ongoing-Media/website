@@ -28,6 +28,7 @@ const organization = {
   url: site.url,
   logo: absoluteUrl('/icon-512.png', Astro.site!),
   email: site.email,
+  sameAs: site.socials.map((social) => social.url),
   address: {
     '@type': 'PostalAddress',
     streetAddress: site.address.street,

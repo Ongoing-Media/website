@@ -1,0 +1,45 @@
+---
+import { site } from '../config/site';
+
+// Instagram en TikTok; gebruikt in de footer en op de contactpagina.
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<ul class:list={['socials', className]}>
+  {
+    site.socials.map((social) => (
+      <li>
+        <a href={social.url} rel="noopener noreferrer" target="_blank">
+          <span class="network">{social.label}</span> {social.handle}
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .socials {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--accent);
+  }
+
+  .network {
+    font-style: italic;
+    color: var(--muted);
+  }
+</style>

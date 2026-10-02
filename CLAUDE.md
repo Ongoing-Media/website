@@ -32,9 +32,9 @@ Deze afspraken gelden bij elke sessie, voor iedereen die aan dit project werkt:
 
 - `src/config/site.ts` — gedeelde sitegegevens (naam, taal, e-mail, adres, lettertype-kit). Gebruik dit in plaats van de naam los over te typen.
 - `src/config/routes.ts` — alle adressen binnen de site en het menu
-- `src/data/` — inhoud: diensten (`services.ts`) en cases (`cases.ts`, met Vimeo-links)
-- `src/lib/` — gedeelde hulpfuncties (met tests), o.a. Vimeo-links en sitemap
-- `src/components/` — herbruikbare bouwstenen (Section, SplitHeading, Photo, VimeoPlayer, ContactForm, …)
+- `src/data/` — inhoud: diensten (`services.ts`)
+- `src/lib/` — gedeelde hulpfuncties (met tests), o.a. sitemap
+- `src/components/` — herbruikbare bouwstenen (Section, SplitHeading, Photo, ContactForm, SocialLinks, …)
 - `src/styles/global.css` — huisstijl: kleuren, lettertype, basisopmaak
 - `src/assets/images/` — bronfoto's; Astro maakt er bij de build kleine WebP-versies van
 - `src/layouts/BaseLayout.astro` — gedeelde basisopmaak voor elke pagina (SEO, favicons, header, footer)
@@ -46,5 +46,5 @@ Deze afspraken gelden bij elke sessie, voor iedereen die aan dit project werkt:
 
 - De site is **Engelstalig**. Lettertype: Helvetica LT Pro via Adobe Fonts (kit in `site.ts`).
 - Lime (`#9FFF3E`) alleen op donkere achtergronden; op licht is het onleesbaar.
-- Een nieuwe case: voeg hem toe in `src/data/cases.ts` met Vimeo-link(s) en zet `placeholder: false`.
+- De pagina **Work** (cases met Vimeo-video's) is tijdelijk weggehaald tot er echte cases zijn. Terughalen: de code staat in commit `e5d2ddf` (`src/pages/work/`, `src/data/cases.ts`, `src/lib/vimeo.ts`, `CaseCard`, `VimeoPlayer`); zet dan ook `frame-src https://player.vimeo.com` terug in `netlify.toml`.
 - Geen inline scripts of stijlen: de beveiligingsregels (CSP) in `netlify.toml` blokkeren die.

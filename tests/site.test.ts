@@ -14,4 +14,16 @@ describe('site config', () => {
   it('gebruikt het algemene e-mailadres op het .nl-domein', () => {
     expect(site.email).toBe('info@ongoingmedia.nl');
   });
+
+  it('heeft het juiste adres', () => {
+    expect(site.address.street).toBe('Herengracht 501');
+    expect(site.address.postalCode).toBe('1017 BV');
+  });
+
+  it('linkt naar Instagram en TikTok', () => {
+    expect(site.socials.map((social) => social.url)).toEqual([
+      'https://www.instagram.com/ongoing.nl/',
+      'https://www.tiktok.com/@ongoingmedia.nl',
+    ]);
+  });
 });

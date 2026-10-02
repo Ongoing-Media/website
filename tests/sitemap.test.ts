@@ -16,13 +16,12 @@ describe('buildSitemap', () => {
 });
 
 describe('sitemap.xml', () => {
-  it('geeft XML met de pagina’s en zonder voorbeeldcases', async () => {
+  it('geeft XML met de pagina’s, zonder bedankpagina', async () => {
     // @ts-expect-error alleen `site` is nodig voor deze route
     const response = await GET({ site: new URL('https://ongoingmedia.nl') });
     expect(response.headers.get('Content-Type')).toContain('application/xml');
     const xml = await response.text();
     expect(xml).toContain('<loc>https://ongoingmedia.nl/what-we-do/</loc>');
-    expect(xml).not.toContain('example-');
     expect(xml).not.toContain('/contact/thanks/');
   });
 });
