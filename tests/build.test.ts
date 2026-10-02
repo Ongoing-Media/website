@@ -122,10 +122,20 @@ describe('contactformulier', () => {
 });
 
 describe('zoekmachines', () => {
-  it('bedankpagina en 404 staan op noindex', () => {
-    expect(page(pages.thanks)).toContain('<meta name="robots" content="noindex">');
-    expect(page(pages.notFound)).toContain('<meta name="robots" content="noindex">');
+  it('bedankpagina en 404 staan op noindex, zonder (niet-bestaand) officieel adres', () => {
+    for (const path of [pages.thanks, pages.notFound]) {
+      expect(page(path)).toContain('<meta name="robots" content="noindex">');
+      expect(page(path)).not.toContain('rel="canonical"');
+      expect(page(path)).not.toContain('property="og:url"');
+    }
   });
+
+  it.each(Object.entries(pages).filter(([name]) => !['thanks', 'notFound'].includes(name)))(
+    '%s heeft een officieel adres op ongoingmedia.nl',
+    (_, path) => {
+      expect(page(path)).toMatch(/<link rel="canonical" href="https:\/\/ongoingmedia\.nl\/[^"]*">/);
+    },
+  );
 
   it('gewone pagina’s staan niet op noindex', () => {
     expect(page(pages.home)).not.toContain('noindex');

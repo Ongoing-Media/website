@@ -19,7 +19,8 @@ interface Props {
 
 const { title, description = site.description, headerTone = 'white', noindex = false } = Astro.props;
 const pageTitle = buildPageTitle(site.name, title);
-const canonicalUrl = absoluteUrl(Astro.url.pathname, Astro.site!);
+// Pagina's die niet in zoekmachines horen (zoals de 404) krijgen geen eigen officieel adres.
+const canonicalUrl = noindex ? undefined : absoluteUrl(Astro.url.pathname, Astro.site!);
 const shareImageUrl = absoluteUrl(site.shareImage.path, Astro.site!);
 
 const organization = {
@@ -47,7 +48,7 @@ const organization = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalUrl} />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
     {noindex && <meta name="robots" content="noindex" />}
 
     <meta property="og:type" content="website" />
@@ -55,7 +56,7 @@ const organization = {
     <meta property="og:locale" content={site.locale} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonicalUrl} />
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
     <meta property="og:image" content={shareImageUrl} />
     <meta property="og:image:width" content={String(site.shareImage.width)} />
     <meta property="og:image:height" content={String(site.shareImage.height)} />
