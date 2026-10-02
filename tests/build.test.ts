@@ -41,6 +41,10 @@ describe('alle pagina’s', () => {
     expect(html).toContain('href="/site.webmanifest"');
   });
 
+  it.each(Object.entries(pages))('%s laadt één gedeeld stylesheet', (_, path) => {
+    expect(page(path).match(/<link rel="stylesheet" href="\/_astro\//g)).toHaveLength(1);
+  });
+
   it.each(Object.entries(pages))('%s laadt Helvetica via Adobe Fonts', (_, path) => {
     expect(page(path)).toContain('<link rel="stylesheet" href="https://use.typekit.net/rxa1hlv.css">');
   });
@@ -140,7 +144,7 @@ describe('menu en footer', () => {
     expect(html).toContain('href="https://www.instagram.com/ongoing.nl/"');
     expect(html).toContain('href="https://www.tiktok.com/@ongoingmedia.nl"');
     expect(html).toContain('href="https://www.linkedin.com/company/ongoing-media/"');
-    expect(html).toMatch(/<span class="label"[^>]*>social<\/span>/);
+    expect(html).toMatch(/class="label"[^>]*>social</);
     expect(html).toContain('Herengracht 501');
     expect(html).toContain('1017 BV Amsterdam');
     expect(html).not.toContain('Keizersgracht');
@@ -192,8 +196,9 @@ describe('contact', () => {
     const html = page(pages.contact);
     const details = html.slice(html.indexOf('aria-label="Contact details"'), html.indexOf('</aside>'));
     expect(details).not.toContain('<picture');
-    expect(details).toMatch(/<h2[^>]*>social<\/h2>/);
-    expect(details.match(/class="icon"[^>]*aria-hidden="true"[^>]*><svg/g)).toHaveLength(3);
+    expect(details).toMatch(/class="label"[^>]*>social</);
+    for (const network of ['Instagram', 'TikTok', 'LinkedIn']) expect(details).toContain(`${network}: </span>`);
+    expect(details.match(/<svg/g)).toHaveLength(3);
   });
 
   it('toont het formulier bovenaan, vóór de contactgegevens', () => {
@@ -208,6 +213,12 @@ describe('bestanden', () => {
 
   it('bevat geen videobestanden of het deck', () => {
     expect(files.filter((file) => /\.(mp4|mov|webm|m4v|avi|mkv|pdf)$/i.test(file))).toEqual([]);
+  });
+
+  it('heeft een manifest met naam en huisstijlkleur', () => {
+    const manifest = JSON.parse(page('site.webmanifest'));
+    expect(manifest.name).toBe('Ongoing Media');
+    expect(manifest.theme_color).toBe('#41192a');
   });
 
   it('heeft alle favicon-formaten', () => {
@@ -233,17 +244,17 @@ describe('animaties', () => {
   it('gebruikt animaties op de pagina’s', () => {
     const home = page(pages.home);
     for (const motion of ['intro', 'reveal', 'stagger', 'drift', 'zoom']) expect(home).toContain(`data-motion="${motion}"`);
-    expect(page(pages.about)).toContain('<picture class="photo" data-motion="image">');
+    expect(page(pages.about)).toMatch(/<picture[^>]*data-motion="image"/);
   });
 
   it('respecteert "minder beweging" en browsers zonder scroll-animaties', () => {
-    expect(css).toContain('@media (prefers-reduced-motion:no-preference)');
-    expect(css).toContain('@supports (animation-timeline:view())');
+    expect(css).toMatch(/@media\s*\(prefers-reduced-motion:\s*no-preference\)/);
+    expect(css).toMatch(/@supports\s*\(animation-timeline:\s*view\(\)\)/);
   });
 
   it('zet de scroll-tijdlijn nooit in de "animation"-verkorting (die browsers niet begrijpen)', () => {
-    expect(css).toMatch(/animation-timeline:view\(\)[;}]/);
-    expect(css).toMatch(/animation-timeline:scroll\(root\)[;}]/);
+    expect(css).toMatch(/animation-timeline:\s*view\(\)\s*[;}]/);
+    expect(css).toMatch(/animation-timeline:\s*scroll\(root\)\s*[;}]/);
     expect(css).not.toMatch(/animation:[^;}]*(?:view|scroll)\(/);
   });
 });

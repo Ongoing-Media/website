@@ -2,6 +2,7 @@
 import Logo from './Logo.astro';
 import type { Tone } from './Section.astro';
 import { mainNav, routes } from '../config/routes';
+import { site } from '../config/site';
 import { isActivePath } from '../lib/url';
 
 interface Props {
@@ -16,7 +17,7 @@ const currentPath = Astro.url.pathname;
 
 <header class="site-header" data-tone={tone}>
   <div class="container bar">
-    <a href={routes.home} class="home-link" aria-label="Ongoing Media, home">
+    <a href={routes.home} class="home-link" aria-label={`${site.name}, home`}>
       <Logo variant={isDark ? 'green' : 'black'} width={132} />
     </a>
 
@@ -27,7 +28,7 @@ const currentPath = Astro.url.pathname;
       <button class="menu-close" type="button" popovertarget="site-menu" popovertargetaction="hide">
         close
       </button>
-      <ul>
+      <ul class="list-reset">
         {
           mainNav.map((item) => (
             <li>
@@ -72,12 +73,6 @@ const currentPath = Astro.url.pathname;
     padding: 0.45em 1.1em;
     min-height: 2.75rem;
     cursor: pointer;
-  }
-
-  .menu ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
   }
 
   .menu a {

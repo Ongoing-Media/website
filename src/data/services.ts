@@ -1,5 +1,4 @@
 export interface Pillar {
-  id: string;
   title: string;
   /** Korte, schuingedrukte toevoeging naast de titel. */
   aside: string;
@@ -9,7 +8,6 @@ export interface Pillar {
 
 export const pillars: readonly Pillar[] = [
   {
-    id: 'strategy',
     title: 'strategy',
     aside: 'with the algorithm',
     summary:
@@ -22,7 +20,6 @@ export const pillars: readonly Pillar[] = [
     ],
   },
   {
-    id: 'campaigns',
     title: 'campaigns',
     aside: 'people can’t scroll past',
     summary:
@@ -39,7 +36,6 @@ export const pillars: readonly Pillar[] = [
     ],
   },
   {
-    id: 'data',
     title: 'data',
     aside: 'full transparency',
     summary:

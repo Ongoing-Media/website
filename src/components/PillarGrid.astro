@@ -9,17 +9,17 @@ interface Props {
 const { detailed = false } = Astro.props;
 ---
 
-<ol class:list={['pillars', { detailed }]} data-motion="stagger">
+<ol class:list={['pillars', 'list-reset', { detailed }]} data-motion="stagger">
   {
     pillars.map((pillar, index) => (
-      <li class="pillar" id={detailed ? pillar.id : undefined}>
+      <li class="pillar">
         <span class="number">0{index + 1}</span>
         <h3 class="title">
           {pillar.title} <span class="aside">{pillar.aside}</span>
         </h3>
         <p class="summary">{pillar.summary}</p>
         {detailed && (
-          <ul class="services">
+          <ul class="services list-reset">
             {pillar.services.map((service) => (
               <li>{service}</li>
             ))}
@@ -32,9 +32,6 @@ const { detailed = false } = Astro.props;
 
 <style>
   .pillars {
-    list-style: none;
-    margin: 0;
-    padding: 0;
     display: grid;
     gap: clamp(2.5rem, 5vw, 3.5rem);
   }
@@ -72,9 +69,7 @@ const { detailed = false } = Astro.props;
   }
 
   .services {
-    list-style: none;
-    margin: 0.5rem 0 0;
-    padding: 0;
+    margin-top: 0.5rem;
     display: grid;
     gap: 0.4rem;
   }

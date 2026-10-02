@@ -24,11 +24,8 @@ import studioTable from '../assets/images/studio-table.jpg';
     image={{ src: studioTable, alt: 'Prints and objects laid out on a long black table, like a campaign in the making' }}
   />
 
-  <div class="repeat" data-tone="cream">
+  <Section tone="cream" top="none" labelledby="pillars-heading">
     <OnRepeat />
-  </div>
-
-  <Section tone="cream" labelledby="pillars-heading">
     <div class="container">
       <h2 id="pillars-heading" class="visually-hidden">Our services</h2>
       <PillarGrid detailed />
@@ -42,7 +39,7 @@ import studioTable from '../assets/images/studio-table.jpg';
         <SplitHeading id="channels-heading" bold="earned, owned" italic="& paid" stacked />
         <p class="lead">We operate across all channels, with the media strategy that fits your objectives.</p>
       </div>
-      <ul class="channels" data-motion="stagger">
+      <ul class="channels list-reset" data-motion="stagger">
         {
           channels.map((channel) => (
             <li>
@@ -59,7 +56,7 @@ import studioTable from '../assets/images/studio-table.jpg';
   <Section tone="cream" labelledby="process-heading">
     <div class="container process">
       <SplitHeading id="process-heading" bold="our way" italic="of working" />
-      <ol class="steps" data-motion="stagger">
+      <ol class="steps list-reset" data-motion="stagger">
         {
           processSteps.map((step, index) => (
             <li>
@@ -77,10 +74,6 @@ import studioTable from '../assets/images/studio-table.jpg';
 </BaseLayout>
 
 <style>
-  .repeat {
-    padding-bottom: 1rem;
-  }
-
 
   .channels-grid {
     display: grid;
@@ -93,9 +86,6 @@ import studioTable from '../assets/images/studio-table.jpg';
   }
 
   .channels {
-    list-style: none;
-    margin: 0;
-    padding: 0;
     display: grid;
     gap: 1.75rem;
   }
@@ -119,9 +109,6 @@ import studioTable from '../assets/images/studio-table.jpg';
   }
 
   .steps {
-    list-style: none;
-    margin: 0;
-    padding: 0;
     display: grid;
     gap: 2rem;
   }

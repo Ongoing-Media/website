@@ -3,17 +3,17 @@ import { absoluteUrl, isActivePath } from '../src/lib/url';
 
 describe('absoluteUrl', () => {
   it('maakt een volledig adres van een pad', () => {
-    expect(absoluteUrl('/work/', 'https://ongoingmedia.nl')).toBe('https://ongoingmedia.nl/work/');
+    expect(absoluteUrl('/about/', 'https://ongoingmedia.nl')).toBe('https://ongoingmedia.nl/about/');
   });
 });
 
 describe('isActivePath', () => {
   it('is actief op de pagina zelf', () => {
-    expect(isActivePath('/work/', '/work/')).toBe(true);
+    expect(isActivePath('/contact/', '/contact/')).toBe(true);
   });
 
   it('is actief op een onderliggende pagina', () => {
-    expect(isActivePath('/work/example-launch-campaign/', '/work/')).toBe(true);
+    expect(isActivePath('/contact/thanks/', '/contact/')).toBe(true);
   });
 
   it('werkt ook zonder slash aan het eind', () => {
@@ -21,11 +21,11 @@ describe('isActivePath', () => {
   });
 
   it('is niet actief op een andere pagina', () => {
-    expect(isActivePath('/about/', '/work/')).toBe(false);
+    expect(isActivePath('/about/', '/contact/')).toBe(false);
   });
 
   it('home is alleen actief op de homepage zelf', () => {
     expect(isActivePath('/', '/')).toBe(true);
-    expect(isActivePath('/work/', '/')).toBe(false);
+    expect(isActivePath('/about/', '/')).toBe(false);
   });
 });

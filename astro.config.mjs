@@ -9,7 +9,14 @@ export default defineConfig({
     inlineStylesheets: 'never',
   },
   vite: {
-    // Ook scripts nooit in de pagina zelf zetten (zelfde reden: CSP).
-    build: { assetsInlineLimit: 0 },
+    build: {
+      // Browsers waarvoor de CSS geschreven wordt. Zonder doelen voegt de CSS-verkleiner
+      // "animation-timeline" samen met "animation", en die schrijfwijze begrijpen browsers nog niet.
+      cssTarget: ['chrome115', 'safari16', 'firefox115'],
+      // Ook scripts nooit in de pagina zelf zetten (zelfde reden: CSP).
+      assetsInlineLimit: 0,
+      // Eén stylesheet voor de hele site: minder verzoeken en na de eerste pagina uit de cache.
+      cssCodeSplit: false,
+    },
   },
 });

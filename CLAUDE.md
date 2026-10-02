@@ -34,8 +34,8 @@ Deze afspraken gelden bij elke sessie, voor iedereen die aan dit project werkt:
 - `src/config/routes.ts` — alle adressen binnen de site en het menu
 - `src/data/` — inhoud: diensten (`services.ts`)
 - `src/lib/` — gedeelde hulpfuncties (met tests), o.a. sitemap
-- `src/components/` — herbruikbare bouwstenen (Section, SplitHeading, Photo, ContactForm, SocialLinks, …)
-- `src/styles/global.css` — huisstijl: kleuren, lettertype, basisopmaak
+- `src/components/` — herbruikbare bouwstenen (Section, SplitHeading, Photo, Button, ContactForm, ContactDetails, …)
+- `src/styles/global.css` — huisstijl: kleuren, lettertype, basisopmaak; `motion.css` — animaties (via `data-motion`)
 - `src/assets/images/` — bronfoto's; Astro maakt er bij de build kleine WebP-versies van
 - `src/layouts/BaseLayout.astro` — gedeelde basisopmaak voor elke pagina (SEO, favicons, header, footer)
 - `src/pages/` — de pagina's zelf

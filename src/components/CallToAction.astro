@@ -1,7 +1,7 @@
 ---
 import Section from './Section.astro';
 import SplitHeading from './SplitHeading.astro';
-import ButtonLink from './ButtonLink.astro';
+import Button from './Button.astro';
 import { routes } from '../config/routes';
 import { site } from '../config/site';
 ---
@@ -11,7 +11,7 @@ import { site } from '../config/site';
     <SplitHeading id="cta-heading" bold="let’s talk" italic="what is going on?" stacked />
     <div class="actions" data-motion="reveal">
       <p class="lead">Got a brand, a briefing or just an idea? We’d love to hear about it.</p>
-      <ButtonLink href={routes.contact}>get in touch</ButtonLink>
+      <Button href={routes.contact}>get in touch</Button>
       <a class="mail" href={`mailto:${site.email}`}>{site.email}</a>
     </div>
   </div>

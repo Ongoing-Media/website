@@ -4,8 +4,8 @@ import Brandmark from './Brandmark.astro';
 import { pillars } from '../data/services';
 
 const words = pillars.map((pillar) => pillar.title);
-// Vier keer dezelfde reeks: breder dan elk scherm, zodat de band naadloos blijft doorlopen.
-// Elke reeks schuift precies zijn eigen breedte op en begint dan opnieuw, dus er is nooit een sprong.
+// Vier keer dezelfde reeks: breder dan elk scherm. De band schuift precies één reeks (een kwart) op en
+// begint dan opnieuw; omdat de reeksen gelijk zijn, is er nooit een sprong te zien.
 const loops = [0, 1, 2, 3];
 ---
 
@@ -29,6 +29,7 @@ const loops = [0, 1, 2, 3];
 
 <style>
   .on-repeat {
+    margin-block: clamp(2.5rem, 6vw, 4.5rem);
     overflow: hidden;
     border-block: 1.5px solid var(--line);
     padding-block: 1.1rem;
@@ -37,11 +38,16 @@ const loops = [0, 1, 2, 3];
   .track {
     display: flex;
     width: max-content;
+    animation: scroll 24s linear infinite;
+  }
+
+  /* Pauzeert als je er met de muis op staat. */
+  .on-repeat:hover .track {
+    animation-play-state: paused;
   }
 
   .group {
     flex: none;
-    animation: scroll 24s linear infinite;
     display: flex;
     align-items: center;
     gap: clamp(1rem, 3vw, 2rem);
@@ -77,12 +83,12 @@ const loops = [0, 1, 2, 3];
 
   @keyframes scroll {
     to {
-      transform: translateX(-100%);
+      transform: translateX(-25%);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .group {
+    .track {
       animation: none;
     }
   }

@@ -1,23 +1,27 @@
 ---
 import Brandmark from './Brandmark.astro';
 
+// De pill-knop van de huisstijl. Met `href` een link, zonder `href` een verzendknop voor formulieren.
 interface Props {
-  href: string;
+  href?: string;
   variant?: 'solid' | 'outline';
   class?: string;
 }
 
 const { href, variant = 'solid', class: className } = Astro.props;
+const Tag = href ? 'a' : 'button';
 ---
 
-<a href={href} class:list={['button', variant, className]}>
+<Tag href={href} type={href ? undefined : 'submit'} class:list={['button', variant, className]}>
   <span><slot /></span>
   <Brandmark class="button-mark" />
-</a>
+</Tag>
 
 <style>
   .button {
     display: inline-flex;
+    font: inherit;
+    cursor: pointer;
     align-items: center;
     gap: 0.9em;
     min-height: 3rem;
@@ -35,9 +39,12 @@ const { href, variant = 'solid', class: className } = Astro.props;
   .solid {
     background: var(--accent);
     color: var(--bg);
+    border: 0;
   }
 
   .outline {
+    color: inherit;
+    background: none;
     border: 1.5px solid currentColor;
   }
 

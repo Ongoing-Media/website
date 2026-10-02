@@ -4,7 +4,7 @@ import { indexableRoutes, mainNav, routes } from '../src/config/routes';
 
 describe('diensten', () => {
   it('zijn de drie pijlers strategy, campaigns en data (geen talentmanagement)', () => {
-    expect(pillars.map((pillar) => pillar.id)).toEqual(['strategy', 'campaigns', 'data']);
+    expect(pillars.map((pillar) => pillar.title)).toEqual(['strategy', 'campaigns', 'data']);
     const allText = JSON.stringify(pillars).toLowerCase();
     expect(allText).not.toContain('talent');
     expect(allText).not.toContain('media division');

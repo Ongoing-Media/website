@@ -1,5 +1,6 @@
 ---
 import logoSvg from '../../public/brand/logo-black.svg?raw';
+import { site } from '../config/site';
 
 // Het officiële logo als inline SVG, zodat het streepje (_) los kan knipperen als een typemachine-cursor.
 // De kleur volgt de tekstkleur (currentColor); de vorm blijft precies het origineel.
@@ -10,7 +11,7 @@ interface Props {
 const { class: className } = Astro.props;
 const svg = logoSvg
   .replace(/<\?xml[^>]*\?>\s*/, '')
-  .replace(/<svg[^>]*?(viewBox="[^"]+")[^>]*>/, '<svg $1 role="img" aria-label="Ongoing Media" fill="currentColor" focusable="false">')
+  .replace(/<svg[^>]*?(viewBox="[^"]+")[^>]*>/, `<svg $1 role="img" aria-label="${site.name}" fill="currentColor" focusable="false">`)
   .replace(/<rect /, '<rect class="cursor" ');
 ---
 

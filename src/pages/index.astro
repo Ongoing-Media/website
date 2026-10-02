@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
 import SplitHeading from '../components/SplitHeading.astro';
-import ButtonLink from '../components/ButtonLink.astro';
+import Button from '../components/Button.astro';
 import Photo from '../components/Photo.astro';
 import Logo from '../components/Logo.astro';
 import OnRepeat from '../components/OnRepeat.astro';
@@ -29,14 +29,14 @@ import streetMotion from '../assets/images/street-motion.jpg';
           <span class="soft">and attention</span>
           <span class="soft indent-2">into impact.</span>
         </h1>
-        <div data-motion="intro-late"><ButtonLink href={routes.contact}>let’s talk</ButtonLink></div>
+        <div data-motion="intro-late"><Button href={routes.contact}>let’s talk</Button></div>
       </div>
       <div class="hero-photos">
         <div data-motion="drift">
           <Photo src={steelRoom} alt="" sizes="(min-width: 60rem) 22vw, 45vw" priority motion="none" class="photo" />
         </div>
         <div class="photo-b" data-motion="drift-fast">
-          <Photo src={walkingBlur} alt="" sizes="(min-width: 60rem) 18vw, 38vw" priority motion="none" class="photo" />
+          <Photo src={walkingBlur} alt="" sizes="(min-width: 60rem) 18vw, 38vw" motion="none" class="photo" />
         </div>
       </div>
     </div>
@@ -52,7 +52,7 @@ import streetMotion from '../assets/images/street-motion.jpg';
           An Amsterdam-based influencer marketing agency. We deliver content that earns its place in the feed, and its way
           into the conversation offline.
         </p>
-        <ButtonLink href={routes.about} variant="outline">more about us</ButtonLink>
+        <Button href={routes.about} variant="outline">more about us</Button>
       </div>
       <Photo src={chairLaptop} alt="A laptop on a white chair in a studio" sizes="(min-width: 60rem) 25vw, 60vw" class="photo about-a" />
       <Photo src={studioTable} alt="Prints and objects laid out on a long black table" sizes="(min-width: 60rem) 28vw, 70vw" class="photo about-b" />
@@ -63,17 +63,15 @@ import streetMotion from '../assets/images/street-motion.jpg';
     <div class="container stack">
       <SplitHeading id="partner-heading" bold="we are your" italic="partner in" stacked />
     </div>
-    <div class="repeat">
-      <OnRepeat />
-    </div>
+    <OnRepeat />
     <div class="container stack">
       <PillarGrid />
-      <ButtonLink href={routes.whatWeDo}>what we do</ButtonLink>
+      <Button href={routes.whatWeDo}>what we do</Button>
     </div>
   </Section>
 
   <section class="statement" aria-labelledby="statement-heading">
-    <Photo src={streetMotion} alt="" sizes="100vw" widths={[640, 960, 1280, 1600]} motion="zoom" class="statement-photo" />
+    <Photo src={streetMotion} alt="" sizes="100vw" widths={[640, 960, 1280, 1600]} motion="zoom" fit="cover" class="statement-photo" />
     <div class="container statement-text">
       <h2 id="statement-heading" data-motion="reveal">we move beyond the feed</h2>
       <p class="lead" data-motion="reveal">Where the right people, at the right moment, move culture forward.</p>
@@ -147,12 +145,6 @@ import streetMotion from '../assets/images/street-motion.jpg';
     margin-top: 30%;
   }
 
-  :global(.photo) img,
-  .statement :global(img) {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
 
   .about-grid {
     display: grid;
@@ -184,10 +176,6 @@ import streetMotion from '../assets/images/street-motion.jpg';
     justify-self: stretch;
   }
 
-  .repeat {
-    margin-block: clamp(2.5rem, 6vw, 4.5rem);
-  }
-
   .statement {
     position: relative;
     display: grid;
@@ -206,7 +194,11 @@ import streetMotion from '../assets/images/street-motion.jpg';
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgb(47 13 5 / 0.85), rgb(47 13 5 / 0.1) 60%);
+    background: linear-gradient(
+      to top,
+      color-mix(in srgb, var(--color-brown) 85%, transparent),
+      color-mix(in srgb, var(--color-brown) 10%, transparent) 60%
+    );
   }
 
   .statement-text {

@@ -1,4 +1,6 @@
 ---
+import { site } from '../config/site';
+
 // Officiële logo's uit de huisstijlmap; alleen de kleur verschilt.
 interface Props {
   variant?: 'black' | 'white' | 'green';
@@ -12,7 +14,7 @@ const height = Math.round((width * 54.19) / 241.24);
 
 <img
   src={`/brand/logo-${variant}.svg`}
-  alt="Ongoing Media"
+  alt={site.name}
   width={width}
   height={height}
   class:list={['logo', className]}

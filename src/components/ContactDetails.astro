@@ -1,0 +1,55 @@
+---
+import SocialLinks from './SocialLinks.astro';
+import { site } from '../config/site';
+
+// E-mail, adres en socials; gebruikt in de footer en op de contactpagina.
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class:list={['contact-details', className]}>
+  <div>
+    <p class="label">say hi</p>
+    <a href={`mailto:${site.email}`}>{site.email}</a>
+  </div>
+  <div>
+    <p class="label">visit</p>
+    <address>
+      {site.address.street}<br />
+      {site.address.postalCode} {site.address.city}
+    </address>
+  </div>
+  <div>
+    <p class="label">social</p>
+    <SocialLinks />
+  </div>
+</div>
+
+<style>
+  .contact-details {
+    display: grid;
+    align-content: start;
+    gap: 1.25rem;
+  }
+
+  .label {
+    margin-bottom: 0.3rem;
+    font-size: var(--text-sm);
+    color: var(--line);
+  }
+
+  address {
+    font-style: normal;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--accent);
+  }
+</style>

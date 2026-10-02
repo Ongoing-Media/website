@@ -1,5 +1,5 @@
 ---
-import Brandmark from './Brandmark.astro';
+import Button from './Button.astro';
 import { routes } from '../config/routes';
 
 // Netlify Forms leest dit formulier uit de gebouwde pagina. Spambescherming:
@@ -45,10 +45,7 @@ const CONTACT_FORM_NAME = 'contact';
     We only use your details to reply to your message. Read our <a href={routes.privacy}>privacy policy</a>.
   </p>
 
-  <button type="submit" class="submit">
-    <span>send message</span>
-    <Brandmark class="submit-mark" />
-  </button>
+  <Button class="submit">send message</Button>
 </form>
 
 <style>
@@ -114,28 +111,7 @@ const CONTACT_FORM_NAME = 'contact';
     color: var(--muted);
   }
 
-  .submit {
+  .contact-form :global(.submit) {
     justify-self: start;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.9em;
-    min-height: 3rem;
-    padding: 0.75em 1.4em 0.75em 1.6em;
-    font: inherit;
-    font-style: italic;
-    color: var(--bg);
-    background: var(--accent);
-    border: 0;
-    border-radius: var(--radius-pill);
-    cursor: pointer;
-    transition: transform 0.3s var(--ease);
-  }
-
-  .submit:hover {
-    transform: translateY(-2px);
-  }
-
-  .submit :global(.submit-mark) {
-    width: 1.8em;
   }
 </style>

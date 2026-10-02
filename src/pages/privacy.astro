@@ -4,6 +4,8 @@ import PageHero from '../components/PageHero.astro';
 import Section from '../components/Section.astro';
 import { site } from '../config/site';
 import { routes } from '../config/routes';
+
+const socialNames = new Intl.ListFormat('en', { type: 'conjunction' }).format(site.socials.map((social) => social.label));
 ---
 
 <BaseLayout title="Privacy policy" description="How Ongoing Media handles your personal data." headerTone="white">
@@ -42,8 +44,8 @@ import { routes } from '../config/routes';
 
       <h2>Social media</h2>
       <p>
-        We link to our Instagram and TikTok pages. Nothing from these platforms loads on our website; once you visit them,
-        their own privacy policies apply.
+        We link to our {socialNames} pages. Nothing from these platforms loads on our website; once you visit them, their
+        own privacy policies apply.
       </p>
 
       <h2>Your rights</h2>

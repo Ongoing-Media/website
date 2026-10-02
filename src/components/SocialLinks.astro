@@ -14,7 +14,7 @@ interface Props {
 const { class: className } = Astro.props;
 ---
 
-<ul class:list={['socials', className]}>
+<ul class:list={['socials', 'list-reset', className]}>
   {
     site.socials.map((social) => (
       <li>
@@ -30,9 +30,6 @@ const { class: className } = Astro.props;
 
 <style>
   .socials {
-    list-style: none;
-    margin: 0;
-    padding: 0;
     display: grid;
     gap: 0.35rem;
   }
