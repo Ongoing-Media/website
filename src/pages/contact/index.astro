@@ -4,10 +4,7 @@ import Section from '../../components/Section.astro';
 import SplitHeading from '../../components/SplitHeading.astro';
 import ContactForm from '../../components/ContactForm.astro';
 import SocialLinks from '../../components/SocialLinks.astro';
-import Photo from '../../components/Photo.astro';
 import { site } from '../../config/site';
-
-import steelRoom from '../../assets/images/steel-room.jpg';
 ---
 
 <BaseLayout
@@ -40,10 +37,9 @@ import steelRoom from '../../assets/images/steel-room.jpg';
           </address>
         </div>
         <div>
-          <h2>follow</h2>
+          <h2>social</h2>
           <SocialLinks />
         </div>
-        <Photo src={steelRoom} alt="" sizes="(min-width: 60rem) 14rem, 50vw" class="photo detail-photo" />
       </aside>
     </div>
   </Section>
@@ -100,13 +96,6 @@ import steelRoom from '../../assets/images/steel-room.jpg';
     line-height: 1.5;
   }
 
-  .details :global(.detail-photo) {
-    width: min(60%, 14rem);
-  }
-
-  .details :global(.detail-photo img) {
-    width: 100%;
-  }
 
   @media (min-width: 60rem) {
     .layout {

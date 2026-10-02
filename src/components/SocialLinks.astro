@@ -1,7 +1,12 @@
 ---
 import { site } from '../config/site';
+import instagram from '../assets/icons/instagram.svg?raw';
+import tiktok from '../assets/icons/tiktok.svg?raw';
+import linkedin from '../assets/icons/linkedin.svg?raw';
 
-// Instagram en TikTok; gebruikt in de footer en op de contactpagina.
+// Instagram, TikTok en LinkedIn met hun logo; gebruikt in de footer en op de contactpagina.
+const icons: Record<(typeof site.socials)[number]['id'], string> = { instagram, tiktok, linkedin };
+
 interface Props {
   class?: string;
 }
@@ -14,7 +19,9 @@ const { class: className } = Astro.props;
     site.socials.map((social) => (
       <li>
         <a href={social.url} rel="noopener noreferrer" target="_blank">
-          <span class="network">{social.label}</span> {social.handle}
+          <span class="icon" aria-hidden="true" set:html={icons[social.id]} />
+          <span class="visually-hidden">{social.label}: </span>
+          {social.handle}
         </a>
       </li>
     ))
@@ -27,10 +34,13 @@ const { class: className } = Astro.props;
     margin: 0;
     padding: 0;
     display: grid;
-    gap: 0.15rem;
+    gap: 0.35rem;
   }
 
   a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
     text-decoration: none;
   }
 
@@ -38,8 +48,14 @@ const { class: className } = Astro.props;
     color: var(--accent);
   }
 
-  .network {
-    font-style: italic;
-    color: var(--muted);
+  .icon {
+    display: inline-flex;
+    width: 1.05em;
+    height: 1.05em;
+  }
+
+  .icon :global(svg) {
+    width: 100%;
+    height: 100%;
   }
 </style>

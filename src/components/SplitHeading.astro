@@ -1,5 +1,6 @@
 ---
 // De kenmerkende kop uit het deck: een dik woord met een dun, schuin vervolg ("we move *beyond the feed*").
+// In plaats van het schuine vervolg kan ook iets anders (bijv. het logo) via de slot "aside".
 interface Props {
   bold: string;
   italic?: string;
@@ -13,10 +14,17 @@ interface Props {
 
 const { bold, italic, level = 2, size = '2xl', stacked = false, id, class: className } = Astro.props;
 const Tag = `h${level}` as const;
+const hasAside = Boolean(italic) || Astro.slots.has('aside');
 ---
 
 <Tag id={id} class:list={['split-heading', `size-${size}`, { stacked }, className]}>
-  <span class="bold">{bold}</span>{italic && ' '}{italic && <span class="italic">{italic}</span>}
+  <span class="bold">{bold}</span>{hasAside && ' '}{
+    hasAside && (
+      <span class="italic">
+        <slot name="aside">{italic}</slot>
+      </span>
+    )
+  }
 </Tag>
 
 <style>

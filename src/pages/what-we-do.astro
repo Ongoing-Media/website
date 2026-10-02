@@ -7,6 +7,8 @@ import PillarGrid from '../components/PillarGrid.astro';
 import OnRepeat from '../components/OnRepeat.astro';
 import CallToAction from '../components/CallToAction.astro';
 import { channels, processSteps } from '../data/services';
+
+import studioTable from '../assets/images/studio-table.jpg';
 ---
 
 <BaseLayout
@@ -16,10 +18,10 @@ import { channels, processSteps } from '../data/services';
 >
   <PageHero
     tone="cream"
-    eyebrow="what we do"
     bold="we are your"
     italic="partner in"
     intro="A seamless collaboration under one roof: from the first insight to the final report."
+    image={{ src: studioTable, alt: 'Prints and objects laid out on a long black table, like a campaign in the making' }}
   />
 
   <div class="repeat" data-tone="cream">

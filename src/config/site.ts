@@ -15,8 +15,9 @@ export const site = {
     countryCode: 'NL',
   },
   socials: [
-    { label: 'Instagram', handle: '@ongoing.nl', url: 'https://www.instagram.com/ongoing.nl/' },
-    { label: 'TikTok', handle: '@ongoingmedia.nl', url: 'https://www.tiktok.com/@ongoingmedia.nl' },
+    { id: 'instagram', label: 'Instagram', handle: '@ongoing.nl', url: 'https://www.instagram.com/ongoing.nl/' },
+    { id: 'tiktok', label: 'TikTok', handle: '@ongoingmedia.nl', url: 'https://www.tiktok.com/@ongoingmedia.nl' },
+    { id: 'linkedin', label: 'LinkedIn', handle: 'Ongoing Media', url: 'https://www.linkedin.com/company/ongoing-media/' },
   ],
   shareImage: { path: '/og-image.jpg', width: 1200, height: 630 },
   themeColor: '#41192a',

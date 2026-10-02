@@ -20,10 +20,11 @@ describe('site config', () => {
     expect(site.address.postalCode).toBe('1017 BV');
   });
 
-  it('linkt naar Instagram en TikTok', () => {
+  it('linkt naar Instagram, TikTok en LinkedIn', () => {
     expect(site.socials.map((social) => social.url)).toEqual([
       'https://www.instagram.com/ongoing.nl/',
       'https://www.tiktok.com/@ongoingmedia.nl',
+      'https://www.linkedin.com/company/ongoing-media/',
     ]);
   });
 });

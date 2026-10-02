@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
 import SplitHeading from '../components/SplitHeading.astro';
-import Logo from '../components/Logo.astro';
+import TypewriterLogo from '../components/TypewriterLogo.astro';
 import Photo from '../components/Photo.astro';
 import CallToAction from '../components/CallToAction.astro';
 import { site } from '../config/site';
@@ -14,14 +14,15 @@ import chairLaptop from '../assets/images/chair-laptop.jpg';
 
 <BaseLayout
   title="About us"
-  description="Ongoing Media was founded by Chantal Janzen and Marco Geerats, together with Michelle de Vroed: the bridge between the media that shaped a generation and the media shaping the next one."
+  description="Ongoing Media was founded by Michelle de Vroed, with the knowledge and help of Chantal Janzen and Marco Geerats: the bridge between the media that shaped a generation and the media shaping the next one."
   headerTone="brown"
 >
   <Section tone="brown" top="small" labelledby="about-title">
     <div class="container hero">
-      <h1 id="about-title">
-        <span class="hello">hi! we are</span>
-        <Logo variant="orange" width={640} class="hero-logo" />
+      <!-- Het logo begint in de ruimte tussen "we" en "are". -->
+      <h1 id="about-title" class="hello">
+        <span class="hello-start">hi! we</span> <span class="hello-end">are</span>
+        <TypewriterLogo class="hero-logo" />
       </h1>
       <p class="lead">
         An Amsterdam-based influencer marketing agency turning behavior into strategy, creators into momentum, and attention
@@ -52,12 +53,15 @@ import chairLaptop from '../assets/images/chair-laptop.jpg';
       <SplitHeading id="story-heading" size="xl" bold="built out of" italic="two worlds" stacked />
       <div class="prose story-text">
         <p>
-          Ongoing Media was founded by <strong>Chantal Janzen</strong> and <strong>Marco Geerats</strong>. Together they
-          bring years of experience in traditional media: they know how stories are told, how attention is earned, and how
-          an audience is built when there’s no algorithm to hide behind.
+          Ongoing Media was founded by <strong>Michelle de Vroed</strong>, with the knowledge and help of{' '}
+          <strong>Chantal Janzen</strong> and <strong>Marco Geerats</strong>.
         </p>
         <p>
-          <strong>Michelle de Vroed</strong> represents the new generation. Three years in traditional media at &amp;C,
+          Chantal &amp; Marco bring years of experience in traditional media: they know how stories are told, how attention
+          is earned, and how an audience is built when there’s no algorithm to hide behind.
+        </p>
+        <p>
+          <strong>Michelle</strong> represents the new generation. Three years in traditional media at &amp;C,
           Chantal Janzen’s media brand, were followed by three years of agency experience, with an expertise in creative and
           strategic influencer marketing campaigns. Native to the feed, and fluent in what moves people before it becomes a
           trend report.
@@ -71,7 +75,7 @@ import chairLaptop from '../assets/images/chair-laptop.jpg';
     </div>
   </Section>
 
-  <Section tone="cream" labelledby="beyond-heading">
+  <Section tone="cream" compact labelledby="beyond-heading">
     <div class="container beyond">
       <div class="prose">
         <SplitHeading id="beyond-heading" size="xl" bold="we move" italic="beyond the feed" />
@@ -85,7 +89,7 @@ import chairLaptop from '../assets/images/chair-laptop.jpg';
         </p>
         <p class="based">Based at {site.address.street}, {site.address.city}.</p>
       </div>
-      <Photo src={chairLaptop} alt="A laptop on a white chair in a studio" sizes="(min-width: 60rem) 24vw, 80vw" class="photo beyond-photo" />
+      <Photo src={chairLaptop} alt="A laptop on a white chair in a studio" sizes="(min-width: 60rem) 18rem, 70vw" class="photo beyond-photo" />
     </div>
   </Section>
 
@@ -98,19 +102,22 @@ import chairLaptop from '../assets/images/chair-laptop.jpg';
     gap: clamp(1.5rem, 4vw, 2.5rem);
   }
 
-  h1 {
-    display: grid;
-    gap: clamp(0.75rem, 2vw, 1.25rem);
-  }
-
   .hello {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 0.26em;
+    row-gap: 0.1em;
+    justify-items: start;
     font-size: var(--text-2xl);
     color: var(--color-white);
   }
 
-  h1 :global(.hero-logo) {
-    width: min(100%, 40rem);
-    height: auto;
+  .hello :global(.hero-logo) {
+    grid-column: 2;
+    justify-self: stretch;
+    max-width: 34rem;
+    margin-left: -0.13em;
+    color: var(--color-orange);
   }
 
   .grown-up,
@@ -164,7 +171,7 @@ import chairLaptop from '../assets/images/chair-laptop.jpg';
   }
 
   .beyond :global(.beyond-photo) {
-    width: min(100%, 22rem);
+    width: min(70%, 18rem);
     justify-self: end;
   }
 

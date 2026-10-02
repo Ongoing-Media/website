@@ -79,6 +79,10 @@ describe('homepage', () => {
     expect(html).toContain('loading="lazy"');
   });
 
+  it('toont bij "hi! we are" het zwarte logo', () => {
+    expect(html).toMatch(/<h2 id="about-heading"[\s\S]*?hi! we are[\s\S]*?src="\/brand\/logo-black\.svg"[\s\S]*?<\/h2>/);
+  });
+
   it('heeft geen "influencer marketing agency · amsterdam" boven de kop', () => {
     expect(html).not.toContain('influencer marketing agency · amsterdam');
   });
@@ -130,11 +134,13 @@ describe('zoekmachines', () => {
 });
 
 describe('menu en footer', () => {
-  it.each(Object.entries(pages))('%s: menu met home, footer met Instagram, TikTok en het juiste adres', (_, path) => {
+  it.each(Object.entries(pages))('%s: menu met home, footer met socials en het juiste adres', (_, path) => {
     const html = page(path);
     expect(html).toMatch(/<a href="\/"[^>]*>home<\/a>/);
     expect(html).toContain('href="https://www.instagram.com/ongoing.nl/"');
     expect(html).toContain('href="https://www.tiktok.com/@ongoingmedia.nl"');
+    expect(html).toContain('href="https://www.linkedin.com/company/ongoing-media/"');
+    expect(html).toMatch(/<span class="label"[^>]*>social<\/span>/);
     expect(html).toContain('Herengracht 501');
     expect(html).toContain('1017 BV Amsterdam');
     expect(html).not.toContain('Keizersgracht');
@@ -148,6 +154,12 @@ describe('menu en footer', () => {
 
 describe('what we do', () => {
   const html = page(pages.whatWeDo);
+
+  it('heeft geen "what we do" boven de kop, wel een foto ernaast', () => {
+    const top = html.slice(html.indexOf('<main'), html.indexOf('</h1>'));
+    expect(top).not.toContain('class="eyebrow"');
+    expect(html.slice(html.indexOf('</h1>'), html.indexOf('class="on-repeat"'))).toContain('<picture');
+  });
 
   it('heeft geen witte achtergrond maar crème', () => {
     expect(html).not.toContain('data-tone="white"');
@@ -163,8 +175,11 @@ describe('what we do', () => {
 describe('about', () => {
   const html = page(pages.about);
 
-  it('toont "hi! we are" met het oranje logo', () => {
-    expect(html).toMatch(/<h1[^>]*>.*hi! we are.*src="\/brand\/logo-orange\.svg".*<\/h1>/s);
+  it('toont "hi! we are" met het logo, waarvan het streepje knippert', () => {
+    const h1 = html.match(/<h1[\s\S]*?<\/h1>/)![0];
+    expect(h1).toMatch(/hi! we<\/span> <span[^>]*>are<\/span>/);
+    expect(h1).toMatch(/<svg[^>]+role="img"[^>]+aria-label="Ongoing Media"/);
+    expect(h1).toContain('<rect class="cursor"');
   });
 
   it('vertelt het verhaal van de oprichters', () => {
@@ -173,6 +188,14 @@ describe('about', () => {
 });
 
 describe('contact', () => {
+  it('heeft geen foto en toont de socials met hun logo', () => {
+    const html = page(pages.contact);
+    const details = html.slice(html.indexOf('aria-label="Contact details"'), html.indexOf('</aside>'));
+    expect(details).not.toContain('<picture');
+    expect(details).toMatch(/<h2[^>]*>social<\/h2>/);
+    expect(details.match(/class="icon"[^>]*aria-hidden="true"[^>]*><svg/g)).toHaveLength(3);
+  });
+
   it('toont het formulier bovenaan, vóór de contactgegevens', () => {
     const html = page(pages.contact);
     expect(html.indexOf('<form')).toBeGreaterThan(0);
