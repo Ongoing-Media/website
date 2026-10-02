@@ -95,8 +95,11 @@ describe('homepage', () => {
     expect(html).toContain('loading="lazy"');
   });
 
-  it('toont bij "hi! we are" het zwarte logo', () => {
-    expect(html).toMatch(/<h2 id="about-heading"[\s\S]*?hi! we are[\s\S]*?src="\/brand\/logo-black\.svg"[\s\S]*?<\/h2>/);
+  it('toont bij "hi! we are" het logo met knipperend streepje', () => {
+    const h2 = html.match(/<h2 id="about-heading"[\s\S]*?<\/h2>/)![0];
+    expect(h2).toContain('hi! we are');
+    expect(h2).toMatch(/<svg[^>]+aria-label="Ongoing Media"/);
+    expect(h2).toContain('<rect class="cursor"');
   });
 
   it('heeft geen "influencer marketing agency · amsterdam" boven de kop', () => {
@@ -209,7 +212,8 @@ describe('about', () => {
   });
 
   it('vertelt het verhaal van de oprichters', () => {
-    for (const name of ['Chantal Janzen', 'Marco Geerats', 'Michelle de Vroed', '&amp;C']) expect(html).toContain(name);
+    for (const name of ['Chantal Janzen', 'Marco Geeratz', 'Michelle de Vroed', '&amp;C']) expect(html).toContain(name);
+    expect(html).not.toContain('Geerats');
   });
 });
 
@@ -265,7 +269,8 @@ describe('animaties', () => {
 
   it('gebruikt animaties op de pagina’s', () => {
     const home = page(pages.home);
-    for (const motion of ['intro', 'reveal', 'stagger', 'drift', 'zoom']) expect(home).toContain(`data-motion="${motion}"`);
+    for (const motion of ['intro', 'reveal', 'sequence', 'drift', 'zoom']) expect(home).toContain(`data-motion="${motion}"`);
+    expect(page(pages.whatWeDo)).toContain('data-motion="stagger"');
     expect(page(pages.about)).toMatch(/<picture[^>]*data-motion="image"/);
   });
 
@@ -277,6 +282,9 @@ describe('animaties', () => {
   it('zet de scroll-tijdlijn nooit in de "animation"-verkorting (die browsers niet begrijpen)', () => {
     expect(css).toMatch(/animation-timeline:\s*view\(\)\s*[;}]/);
     expect(css).toMatch(/animation-timeline:\s*scroll\(root\)\s*[;}]/);
+    // De pijlers swipen op een breed scherm na elkaar omhoog, gekoppeld aan de hele rij.
+    expect(css).toMatch(/view-timeline-name:\s*--sequence/);
+    expect(css).toMatch(/animation-timeline:\s*--sequence\s*[;}]/);
     expect(css).not.toMatch(/animation:[^;}]*(?:view|scroll)\(/);
   });
 });

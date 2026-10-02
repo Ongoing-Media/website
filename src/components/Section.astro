@@ -21,6 +21,8 @@ const { tone = 'white', class: className, labelledby, top = 'default', compact =
 <style>
   .section {
     position: relative;
+    /* Marges van de inhoud blijven binnen het eigen vlak (anders komt de achtergrond van de pagina erdoorheen). */
+    display: flow-root;
     padding-block: var(--section-space);
   }
 

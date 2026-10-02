@@ -9,7 +9,7 @@ interface Props {
 const { detailed = false } = Astro.props;
 ---
 
-<ol class:list={['pillars', 'list-reset', { detailed }]} data-motion="stagger">
+<ol class:list={['pillars', 'list-reset', { detailed }]} data-motion="sequence">
   {
     pillars.map((pillar, index) => (
       <li class="pillar">

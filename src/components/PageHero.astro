@@ -17,7 +17,7 @@ interface Props {
 const { tone, bold, italic, eyebrow, intro, image } = Astro.props;
 ---
 
-<Section tone={tone} top="small">
+<Section tone={tone} top="small" compact>
   <div class:list={['container', 'hero', { 'with-image': image }]}>
     <div class="text">
       {eyebrow && <p class="eyebrow">{eyebrow}</p>}
