@@ -22,11 +22,13 @@ const pageTitle = buildPageTitle(site.name, title);
 // Pagina's die niet in zoekmachines horen (zoals de 404) krijgen geen eigen officieel adres.
 const canonicalUrl = noindex ? undefined : absoluteUrl(Astro.url.pathname, Astro.site!);
 const shareImageUrl = absoluteUrl(site.shareImage.path, Astro.site!);
+// Het adres van de homepage precies zoals de site het zelf noemt (met slash), zoals Google dat verwacht.
+const homeUrl = absoluteUrl('/', Astro.site!);
 
 const organization = {
   '@type': 'Organization',
   name: site.name,
-  url: site.url,
+  url: homeUrl,
   logo: absoluteUrl('/icon-512.png', Astro.site!),
   email: site.email,
   sameAs: site.socials.map((social) => social.url),
@@ -39,7 +41,7 @@ const organization = {
   },
 };
 // "WebSite" vertelt Google welke sitenaam naast het favicon in de zoekresultaten hoort.
-const website = { '@type': 'WebSite', name: site.name, url: site.url };
+const website = { '@type': 'WebSite', name: site.name, url: homeUrl };
 const structuredData = { '@context': 'https://schema.org', '@graph': [website, organization] };
 ---
 
