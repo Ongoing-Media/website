@@ -62,6 +62,18 @@ describe('alle pagina’s', () => {
 describe('homepage', () => {
   const html = page(pages.home);
 
+  it('heeft als titel alleen "Ongoing Media"', () => {
+    expect(html).toContain('<title>Ongoing Media</title>');
+    expect(html).toContain('<meta property="og:title" content="Ongoing Media">');
+  });
+
+  it('vertelt Google de sitenaam "Ongoing Media"', () => {
+    const data = JSON.parse(html.match(/<script type="application\/ld\+json">(.*?)<\/script>/)![1]);
+    expect(data['@graph']).toContainEqual({ '@type': 'WebSite', name: 'Ongoing Media', url: 'https://ongoingmedia.nl/' });
+    // Zelfde adres als de canonical van de homepage.
+    expect(html).toContain('<link rel="canonical" href="https://ongoingmedia.nl/">');
+  });
+
   it('noemt ongoingmedia.nl als officieel adres', () => {
     expect(html).toContain('<link rel="canonical" href="https://ongoingmedia.nl/">');
   });
