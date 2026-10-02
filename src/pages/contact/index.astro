@@ -103,7 +103,11 @@ import { site } from '../../config/site';
       grid-template-areas:
         'intro form'
         'details form';
+      /* Extra hoogte van het formulier gaat onder de gegevens, niet tussen intro en gegevens. */
+      grid-template-rows: auto 1fr;
       column-gap: clamp(3rem, 6vw, 6rem);
+      /* Zelfde ruimte als tussen de contactgegevens onderling. */
+      row-gap: 1.75rem;
       align-items: start;
     }
   }

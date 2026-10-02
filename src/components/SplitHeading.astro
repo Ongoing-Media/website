@@ -5,7 +5,7 @@ interface Props {
   bold: string;
   italic?: string;
   level?: 1 | 2 | 3;
-  size?: 'xl' | '2xl' | '3xl';
+  size?: 'xl' | 'xl-plus' | '2xl' | '3xl';
   /** Het schuine deel op een nieuwe regel, iets ingesprongen. */
   stacked?: boolean;
   id?: string;
@@ -34,6 +34,10 @@ const hasAside = Boolean(italic) || Astro.slots.has('aside');
 
   .size-xl {
     font-size: var(--text-xl);
+  }
+
+  .size-xl-plus {
+    font-size: var(--text-xl-plus);
   }
 
   .size-2xl {
