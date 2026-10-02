@@ -136,7 +136,7 @@
       }
 
       [data-motion='sequence'] > :nth-child(3) {
-        animation-range: cover 35% cover 52%;
+        animation-range: cover 28% cover 43%;
       }
     }
 
