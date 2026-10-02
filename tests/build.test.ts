@@ -169,7 +169,7 @@ describe('menu en footer', () => {
     expect(html).toContain('href="https://www.instagram.com/ongoing.nl/"');
     expect(html).toContain('href="https://www.tiktok.com/@ongoingmedia.nl"');
     expect(html).toContain('href="https://www.linkedin.com/company/ongoing-media/"');
-    expect(html).toMatch(/class="label"[^>]*>social</);
+    expect(html).toMatch(/class="label"[^>]*>socials</);
     expect(html).toContain('Herengracht 501');
     expect(html).toContain('1017 BV Amsterdam');
     expect(html).not.toContain('Keizersgracht');
@@ -239,7 +239,7 @@ describe('contact', () => {
     const html = page(pages.contact);
     const details = html.slice(html.indexOf('aria-label="Contact details"'), html.indexOf('</aside>'));
     expect(details).not.toContain('<picture');
-    expect(details).toMatch(/class="label"[^>]*>social</);
+    expect(details).toMatch(/class="label"[^>]*>socials</);
     for (const network of ['Instagram', 'TikTok', 'LinkedIn']) expect(details).toContain(`${network}: </span>`);
     expect(details.match(/<svg/g)).toHaveLength(3);
   });
