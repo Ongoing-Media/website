@@ -4,7 +4,7 @@ import Section from '../components/Section.astro';
 import SplitHeading from '../components/SplitHeading.astro';
 import Button from '../components/Button.astro';
 import Photo from '../components/Photo.astro';
-import Logo from '../components/Logo.astro';
+import TypewriterLogo from '../components/TypewriterLogo.astro';
 import OnRepeat from '../components/OnRepeat.astro';
 import PillarGrid from '../components/PillarGrid.astro';
 import CallToAction from '../components/CallToAction.astro';
@@ -46,7 +46,7 @@ import streetMotion from '../assets/images/street-motion.jpg';
     <div class="container about-grid">
       <div class="about-text">
         <SplitHeading id="about-heading" bold="hi! we are" stacked>
-          <Logo slot="aside" variant="black" width={240} class="inline-logo" />
+          <TypewriterLogo slot="aside" class="inline-logo" />
         </SplitHeading>
         <p class="lead" data-motion="reveal">
           An Amsterdam-based influencer marketing agency. We deliver content that earns its place in the feed, and its way
@@ -126,11 +126,11 @@ import streetMotion from '../assets/images/street-motion.jpg';
     padding-left: 2.2em;
   }
 
+  /* Zelfde bruin als "hi! we are"; breedte = hoogte (0.95em) × verhouding van het logo. */
   .about-text :global(.inline-logo) {
-    display: block;
-    width: auto;
-    height: 0.95em;
+    width: 4.2em;
     margin-top: 0.15em;
+    color: var(--fg);
   }
 
   .hero-photos {

@@ -8,6 +8,7 @@
    data-motion="reveal"    blok dat zacht omhoog komt zodra het in beeld scrollt
    data-motion="image"     foto die van onder naar boven in zijn kader schuift
    data-motion="stagger"   lijst waarvan de items één voor één binnenkomen
+   data-motion="sequence"  rij die naarmate je verder scrolt stuk voor stuk omhoog swipet (mobiel: per item)
    data-motion="drift" / "drift-fast"   foto die langzaam meebeweegt met scrollen (diepte-effect)
    data-motion="zoom"      foto die uitzoomt terwijl je erlangs scrolt */
 
@@ -26,6 +27,17 @@
   from {
     opacity: 0;
     transform: translateY(2.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes motion-swipe {
+  from {
+    opacity: 0;
+    transform: translateY(6rem);
   }
   to {
     opacity: 1;
@@ -99,6 +111,33 @@
       animation: motion-reveal linear both;
       animation-timeline: view();
       animation-range: entry 5% entry 75%;
+    }
+
+    /* Mobiel (items onder elkaar): elk item komt binnen zodra het zelf in beeld scrolt. */
+    [data-motion='sequence'] > * {
+      animation: motion-swipe linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 80%;
+    }
+
+    /* Breed scherm (items naast elkaar): gekoppeld aan het scrollen door de hele rij, dus na elkaar. */
+    @media (min-width: 60rem) {
+      [data-motion='sequence'] {
+        view-timeline-name: --sequence;
+      }
+
+      [data-motion='sequence'] > * {
+        animation-timeline: --sequence;
+        animation-range: cover 5% cover 22%;
+      }
+
+      [data-motion='sequence'] > :nth-child(2) {
+        animation-range: cover 20% cover 37%;
+      }
+
+      [data-motion='sequence'] > :nth-child(3) {
+        animation-range: cover 35% cover 52%;
+      }
     }
 
     [data-motion='stagger'] > :nth-child(3n + 2) {
