@@ -1,0 +1,38 @@
+---
+export type Tone = 'plum' | 'brown' | 'white' | 'cream' | 'lime';
+
+interface Props {
+  tone?: Tone;
+  class?: string;
+  labelledby?: string;
+  /** Ruimte aan de bovenkant: `small` direct onder de menubalk, `none` als vervolg op het blok erboven. */
+  top?: 'default' | 'small' | 'none';
+  /** Minder ruimte boven en onder, voor een rustiger blok. */
+  compact?: boolean;
+}
+
+const { tone = 'white', class: className, labelledby, top = 'default', compact = false } = Astro.props;
+---
+
+<section data-tone={tone} aria-labelledby={labelledby} class:list={['section', { compact }, `top-${top}`, className]}>
+  <slot />
+</section>
+
+<style>
+  .section {
+    position: relative;
+    padding-block: var(--section-space);
+  }
+
+  .compact {
+    padding-block: clamp(3rem, 7vw, 5.5rem);
+  }
+
+  .top-small {
+    padding-top: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .top-none {
+    padding-top: 0;
+  }
+</style>

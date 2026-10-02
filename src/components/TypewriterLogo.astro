@@ -1,0 +1,46 @@
+---
+import logoSvg from '../../public/brand/logo-black.svg?raw';
+import { site } from '../config/site';
+
+// Het officiële logo als inline SVG, zodat het streepje (_) los kan knipperen als een typemachine-cursor.
+// De kleur volgt de tekstkleur (currentColor); de vorm blijft precies het origineel.
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+const svg = logoSvg
+  .replace(/<\?xml[^>]*\?>\s*/, '')
+  .replace(/<svg[^>]*?(viewBox="[^"]+")[^>]*>/, `<svg $1 role="img" aria-label="${site.name}" fill="currentColor" focusable="false">`)
+  .replace(/<rect /, '<rect class="cursor" ');
+---
+
+<span class:list={['typewriter-logo', className]} set:html={svg} />
+
+<style>
+  .typewriter-logo {
+    display: block;
+  }
+
+  .typewriter-logo :global(svg) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .typewriter-logo :global(.cursor) {
+    animation: blink 1.1s steps(1, end) infinite;
+  }
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .typewriter-logo :global(.cursor) {
+      animation: none;
+    }
+  }
+</style>

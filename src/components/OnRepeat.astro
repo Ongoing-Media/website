@@ -1,0 +1,95 @@
+---
+// "we are your partner in STRATEGY — CAMPAIGNS — DATA … on repeat", als doorlopende band.
+import Brandmark from './Brandmark.astro';
+import { pillars } from '../data/services';
+
+const words = pillars.map((pillar) => pillar.title);
+// Vier keer dezelfde reeks: breder dan elk scherm. De band schuift precies één reeks (een kwart) op en
+// begint dan opnieuw; omdat de reeksen gelijk zijn, is er nooit een sprong te zien.
+const loops = [0, 1, 2, 3];
+---
+
+<div class="on-repeat" data-motion="reveal">
+  <p class="visually-hidden">{words.join(', ')}, on repeat.</p>
+  <div class="track" aria-hidden="true">
+    {
+      loops.map(() => (
+        <div class="group">
+          {words.map((word) => (
+            <span class="word">{word}</span>
+            <span class="line" />
+          ))}
+          <span class="pill">on repeat</span>
+          <Brandmark class="loop-mark" />
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .on-repeat {
+    margin-block: clamp(2.5rem, 6vw, 4.5rem);
+    overflow: hidden;
+    border-block: 1.5px solid var(--line);
+    padding-block: 1.1rem;
+  }
+
+  .track {
+    display: flex;
+    width: max-content;
+    animation: scroll 24s linear infinite;
+  }
+
+  /* Pauzeert als je er met de muis op staat. */
+  .on-repeat:hover .track {
+    animation-play-state: paused;
+  }
+
+  .group {
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2rem);
+    padding-right: clamp(1rem, 3vw, 2rem);
+  }
+
+  .word {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+  }
+
+  .line {
+    width: clamp(2rem, 6vw, 5rem);
+    height: 1.5px;
+    background: var(--line);
+  }
+
+  .pill {
+    padding: 0.4em 1.2em;
+    border-radius: var(--radius-pill);
+    background: var(--color-lime);
+    color: var(--color-plum);
+    font-size: var(--text-lg);
+    font-style: italic;
+    white-space: nowrap;
+  }
+
+  .on-repeat :global(.loop-mark) {
+    width: 3rem;
+  }
+
+  @keyframes scroll {
+    to {
+      transform: translateX(-25%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .track {
+      animation: none;
+    }
+  }
+</style>

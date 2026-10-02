@@ -1,39 +1,241 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { site } from '../config/site';
+import Section from '../components/Section.astro';
+import SplitHeading from '../components/SplitHeading.astro';
+import Button from '../components/Button.astro';
+import Photo from '../components/Photo.astro';
+import Logo from '../components/Logo.astro';
+import OnRepeat from '../components/OnRepeat.astro';
+import PillarGrid from '../components/PillarGrid.astro';
+import CallToAction from '../components/CallToAction.astro';
+import { routes } from '../config/routes';
 
-const tagline = 'coming soon';
+import walkingBlur from '../assets/images/walking-blur.jpg';
+import steelRoom from '../assets/images/steel-room.jpg';
+import chairLaptop from '../assets/images/chair-laptop.jpg';
+import studioTable from '../assets/images/studio-table.jpg';
+import streetMotion from '../assets/images/street-motion.jpg';
 ---
 
-<BaseLayout title={tagline}>
-  <main>
-    <h1>{site.name}</h1>
-    <p>{tagline}</p>
-  </main>
+<BaseLayout title="Influencer marketing agency in Amsterdam" headerTone="plum">
+  <Section tone="plum" top="small" class="hero" labelledby="hero-heading">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <h1 id="hero-heading" class="hero-heading" data-motion="intro">
+          <span>we turn behavior</span>
+          <span class="indent-2">into strategy,</span>
+          <span class="indent-1">creators into</span>
+          <span class="indent-3">momentum,</span>
+          <span class="soft">and attention</span>
+          <span class="soft indent-2">into impact.</span>
+        </h1>
+        <div data-motion="intro-late"><Button href={routes.contact}>let’s talk</Button></div>
+      </div>
+      <div class="hero-photos">
+        <div data-motion="drift">
+          <Photo src={steelRoom} alt="" sizes="(min-width: 60rem) 22vw, 45vw" priority motion="none" class="photo" />
+        </div>
+        <div class="photo-b" data-motion="drift-fast">
+          <Photo src={walkingBlur} alt="" sizes="(min-width: 60rem) 18vw, 38vw" motion="none" class="photo" />
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="white" labelledby="about-heading">
+    <div class="container about-grid">
+      <div class="about-text">
+        <SplitHeading id="about-heading" bold="hi! we are" stacked>
+          <Logo slot="aside" variant="black" width={240} class="inline-logo" />
+        </SplitHeading>
+        <p class="lead" data-motion="reveal">
+          An Amsterdam-based influencer marketing agency. We deliver content that earns its place in the feed, and its way
+          into the conversation offline.
+        </p>
+        <Button href={routes.about} variant="outline">more about us</Button>
+      </div>
+      <Photo src={chairLaptop} alt="A laptop on a white chair in a studio" sizes="(min-width: 60rem) 25vw, 60vw" class="photo about-a" />
+      <Photo src={studioTable} alt="Prints and objects laid out on a long black table" sizes="(min-width: 60rem) 28vw, 70vw" class="photo about-b" />
+    </div>
+  </Section>
+
+  <Section tone="cream" labelledby="partner-heading">
+    <div class="container stack">
+      <SplitHeading id="partner-heading" bold="we are your" italic="partner in" stacked />
+    </div>
+    <OnRepeat />
+    <div class="container stack">
+      <PillarGrid />
+      <Button href={routes.whatWeDo}>what we do</Button>
+    </div>
+  </Section>
+
+  <section class="statement" aria-labelledby="statement-heading">
+    <Photo src={streetMotion} alt="" sizes="100vw" widths={[640, 960, 1280, 1600]} motion="zoom" fit="cover" class="statement-photo" />
+    <div class="container statement-text">
+      <h2 id="statement-heading" data-motion="reveal">we move beyond the feed</h2>
+      <p class="lead" data-motion="reveal">Where the right people, at the right moment, move culture forward.</p>
+    </div>
+  </section>
+
+
+  <CallToAction />
 </BaseLayout>
 
 <style>
-  main {
-    min-height: 100vh;
+  .hero {
+    overflow: hidden;
+  }
+
+  .hero-grid {
     display: grid;
-    place-content: center;
-    gap: 0.75rem;
-    padding: 1.5rem;
-    text-align: center;
+    gap: 3rem;
   }
 
-  h1 {
-    margin: 0;
-    font-size: clamp(2.25rem, 8vw, 5rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
+  .hero-text {
+    display: grid;
+    justify-items: start;
+    gap: clamp(1.5rem, 4vw, 2.5rem);
   }
 
-  p {
-    margin: 0;
-    font-size: clamp(0.875rem, 2.5vw, 1.125rem);
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    opacity: 0.7;
+  .hero-heading {
+    font-size: clamp(2.2rem, 1.1rem + 4vw, 4.75rem);
+    color: var(--accent);
+  }
+
+  .hero-heading span {
+    display: block;
+  }
+
+  .hero-heading .soft {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--fg);
+  }
+
+  /* Speelse, verspringende regels zoals in het deck. */
+  .hero-heading .indent-1 {
+    padding-left: 0.6em;
+  }
+
+  .hero-heading .indent-2 {
+    padding-left: 1.4em;
+  }
+
+  .hero-heading .indent-3 {
+    padding-left: 2.2em;
+  }
+
+  .about-text :global(.inline-logo) {
+    display: block;
+    width: auto;
+    height: 0.95em;
+    margin-top: 0.15em;
+  }
+
+  .hero-photos {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .hero-photos .photo-b {
+    margin-top: 30%;
+  }
+
+
+  .about-grid {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  .about-text {
+    display: grid;
+    justify-items: start;
+    gap: 1.75rem;
+  }
+
+  .about-grid :global(.about-a) {
+    width: 70%;
+  }
+
+  .about-grid :global(.about-b) {
+    width: 80%;
+    justify-self: end;
+  }
+
+  .stack {
+    display: grid;
+    justify-items: start;
+    gap: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  .stack > :global(*:not(a)) {
+    justify-self: stretch;
+  }
+
+  .statement {
+    position: relative;
+    display: grid;
+    min-height: min(90vh, 52rem);
+    color: var(--color-white);
+    background: var(--color-brown);
+    overflow: hidden;
+  }
+
+  .statement :global(.statement-photo) {
+    position: absolute;
+    inset: 0;
+  }
+
+  .statement::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      color-mix(in srgb, var(--color-brown) 85%, transparent),
+      color-mix(in srgb, var(--color-brown) 10%, transparent) 60%
+    );
+  }
+
+  .statement-text {
+    position: relative;
+    z-index: 1;
+    align-self: end;
+    display: grid;
+    gap: 1.25rem;
+    padding-block: clamp(3rem, 8vw, 6rem);
+  }
+
+  .statement h2 {
+    font-size: var(--text-3xl);
+    color: var(--color-lime);
+    max-width: 10ch;
+  }
+
+
+
+  @media (min-width: 60rem) {
+    .hero-grid {
+      grid-template-columns: 1.5fr 1fr;
+      align-items: center;
+    }
+
+    .about-grid {
+      grid-template-columns: 1.1fr 0.8fr 1fr;
+      align-items: end;
+    }
+
+    .about-grid :global(.about-a) {
+      width: 100%;
+      align-self: start;
+    }
+
+    .about-grid :global(.about-b) {
+      width: 100%;
+    }
   }
 </style>

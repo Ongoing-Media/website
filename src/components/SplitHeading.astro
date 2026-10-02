@@ -1,0 +1,68 @@
+---
+// De kenmerkende kop uit het deck: een dik woord met een dun, schuin vervolg ("we move *beyond the feed*").
+// In plaats van het schuine vervolg kan ook iets anders (bijv. het logo) via de slot "aside".
+interface Props {
+  bold: string;
+  italic?: string;
+  level?: 1 | 2;
+  size?: 'xl' | 'xl-plus' | '2xl' | '3xl';
+  /** Het schuine deel op een nieuwe regel, iets ingesprongen. */
+  stacked?: boolean;
+  id?: string;
+  class?: string;
+}
+
+const { bold, italic, level = 2, size = '2xl', stacked = false, id, class: className } = Astro.props;
+const Tag = `h${level}` as const;
+const hasAside = Boolean(italic) || Astro.slots.has('aside');
+// Paginatitel (h1, op twee regels) komt bij het laden regel voor regel binnen; andere koppen bij het scrollen.
+const motion = level === 1 && stacked ? 'intro' : 'reveal';
+---
+
+<Tag id={id} class:list={['split-heading', `size-${size}`, { stacked }, className]} data-motion={motion}>
+  <span class="bold">{bold}</span>{hasAside && ' '}{
+    hasAside && (
+      <span class="italic">
+        <slot name="aside">{italic}</slot>
+      </span>
+    )
+  }
+</Tag>
+
+<style>
+  .split-heading {
+    font-weight: 700;
+  }
+
+  .size-xl {
+    font-size: var(--text-xl);
+  }
+
+  .size-xl-plus {
+    font-size: var(--text-xl-plus);
+  }
+
+  .size-2xl {
+    font-size: var(--text-2xl);
+  }
+
+  .size-3xl {
+    font-size: var(--text-3xl);
+  }
+
+  .italic {
+    font-style: italic;
+    font-weight: 300;
+    letter-spacing: -0.035em;
+    color: var(--accent);
+  }
+
+  .stacked .bold {
+    display: inline-block;
+  }
+
+  .stacked .italic {
+    display: block;
+    padding-left: 0.9em;
+  }
+</style>

@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/Section.astro';
+import SplitHeading from '../../components/SplitHeading.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import ContactDetails from '../../components/ContactDetails.astro';
+---
+
+<BaseLayout
+  title="Contact"
+  description="Got a brand, a briefing or just an idea? Get in touch with Ongoing Media in Amsterdam."
+  headerTone="plum"
+>
+  <Section tone="plum" top="small">
+    <div class="container layout">
+      <div class="intro">
+        <SplitHeading level={1} bold="let’s talk" italic="what is going on?" stacked />
+        <p class="lead" data-motion="intro-late">Got a brand, a briefing or just an idea? Send us a message and we’ll get back to you soon.</p>
+      </div>
+
+      <div class="form-card" data-tone="cream" data-motion="intro-late">
+        <h2 class="form-title">send us a message</h2>
+        <ContactForm />
+      </div>
+
+      <aside class="details" aria-label="Contact details" data-motion="intro-late">
+        <ContactDetails />
+      </aside>
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .layout {
+    display: grid;
+    gap: 2.5rem;
+    grid-template-areas:
+      'intro'
+      'form'
+      'details';
+  }
+
+  .intro {
+    grid-area: intro;
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .form-card {
+    grid-area: form;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    border-radius: 1.5rem;
+  }
+
+  .form-title {
+    font-size: var(--text-xl);
+    margin-bottom: 1.5rem;
+  }
+
+  .details {
+    grid-area: details;
+  }
+
+  @media (min-width: 60rem) {
+    .layout {
+      grid-template-columns: 1fr 1.25fr;
+      grid-template-areas:
+        'intro form'
+        'details form';
+      /* Extra hoogte van het formulier gaat onder de gegevens, niet tussen intro en gegevens. */
+      grid-template-rows: auto 1fr;
+      column-gap: clamp(3rem, 6vw, 6rem);
+      /* Zelfde ruimte als tussen de contactgegevens onderling. */
+      row-gap: 1.75rem;
+      align-items: start;
+    }
+  }
+</style>

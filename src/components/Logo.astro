@@ -1,0 +1,22 @@
+---
+import { site } from '../config/site';
+
+// Officiële logo's uit de huisstijlmap; alleen de kleur verschilt.
+interface Props {
+  variant?: 'black' | 'white' | 'green';
+  width?: number;
+  class?: string;
+}
+
+const { variant = 'black', width = 160, class: className } = Astro.props;
+const height = Math.round((width * 54.19) / 241.24);
+---
+
+<img
+  src={`/brand/logo-${variant}.svg`}
+  alt={site.name}
+  width={width}
+  height={height}
+  class:list={['logo', className]}
+  decoding="async"
+/>

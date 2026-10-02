@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Button from '../../components/Button.astro';
+import { routes } from '../../config/routes';
+---
+
+<BaseLayout title="Thank you" description="Thanks for your message. We’ll get back to you soon." headerTone="plum" noindex>
+  <PageHero tone="plum" bold="thank" italic="you!" intro="Your message is on its way. We’ll get back to you soon.">
+    <div>
+      <Button href={routes.home}>back to home</Button>
+    </div>
+  </PageHero>
+</BaseLayout>
