@@ -1,0 +1,42 @@
+---
+import Section from './Section.astro';
+import SplitHeading from './SplitHeading.astro';
+import ButtonLink from './ButtonLink.astro';
+import { routes } from '../config/routes';
+import { site } from '../config/site';
+---
+
+<Section tone="lime" labelledby="cta-heading">
+  <div class="container cta">
+    <SplitHeading id="cta-heading" bold="let’s talk" italic="what is going on?" stacked />
+    <div class="actions">
+      <p class="lead">Got a brand, a briefing or just an idea? We’d love to hear about it.</p>
+      <ButtonLink href={routes.contact}>get in touch</ButtonLink>
+      <a class="mail" href={`mailto:${site.email}`}>{site.email}</a>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .cta {
+    display: grid;
+    gap: 2.5rem;
+    align-items: end;
+  }
+
+  .actions {
+    display: grid;
+    justify-items: start;
+    gap: 1.5rem;
+  }
+
+  .mail {
+    text-underline-offset: 0.2em;
+  }
+
+  @media (min-width: 60rem) {
+    .cta {
+      grid-template-columns: 1.4fr 1fr;
+    }
+  }
+</style>

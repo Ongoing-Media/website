@@ -1,0 +1,128 @@
+---
+import Brandmark from './Brandmark.astro';
+import { buildVimeoEmbedUrl, buildVimeoPageUrl, parseVimeo } from '../lib/vimeo';
+
+// Video van Vimeo. De speler laadt pas na een klik: de pagina blijft snel en Vimeo plaatst niets vooraf.
+// Zonder video (nog geen link) toont dit een nette lege plek.
+interface Props {
+  /** Vimeo-link of -ID. Leeg = plek voor een video die nog komt. */
+  video?: string;
+  title: string;
+  format?: 'vertical' | 'landscape';
+}
+
+const { video, title, format = 'vertical' } = Astro.props;
+const parsed = video ? parseVimeo(video) : null;
+if (video && !parsed) {
+  throw new Error(`Ongeldige Vimeo-link: "${video}"`);
+}
+---
+
+<div class:list={['player', format]}>
+  {
+    parsed ? (
+      <a
+        class="facade"
+        href={buildVimeoPageUrl(parsed)}
+        data-vimeo-embed={buildVimeoEmbedUrl(parsed, { autoplay: true })}
+        data-vimeo-title={title}
+      >
+        <span class="play">
+          <Brandmark class="play-mark" />
+          <span>play video</span>
+        </span>
+        <span class="visually-hidden">: {title}</span>
+      </a>
+    ) : (
+      <div class="empty">
+        <Brandmark class="play-mark" />
+        <span>video coming soon</span>
+      </div>
+    )
+  }
+</div>
+
+<script>
+  // Vervangt de klikbare plek door de echte Vimeo-speler.
+  for (const link of document.querySelectorAll<HTMLAnchorElement>('[data-vimeo-embed]')) {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      const iframe = document.createElement('iframe');
+      iframe.src = link.dataset.vimeoEmbed!;
+      iframe.title = link.dataset.vimeoTitle ?? 'Video';
+      iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+      iframe.allowFullscreen = true;
+      link.replaceWith(iframe);
+      iframe.focus();
+    });
+  }
+</script>
+
+<style>
+  .player {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: var(--color-brown);
+    color: var(--color-white);
+  }
+
+  .vertical {
+    aspect-ratio: 9 / 16;
+  }
+
+  .landscape {
+    aspect-ratio: 16 / 9;
+  }
+
+  .player :global(iframe),
+  .facade,
+  .empty {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .facade,
+  .empty {
+    display: grid;
+    place-items: center;
+    text-decoration: none;
+    background:
+      radial-gradient(120% 80% at 20% 10%, rgb(255 104 9 / 0.35), transparent 60%),
+      radial-gradient(100% 70% at 90% 100%, rgb(159 255 62 / 0.18), transparent 60%),
+      var(--color-plum);
+  }
+
+  .play,
+  .empty {
+    font-style: italic;
+  }
+
+  .play {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8em;
+    padding: 0.8em 1.4em;
+    border-radius: var(--radius-pill);
+    background: var(--color-lime);
+    color: var(--color-plum);
+    transition: transform 0.3s var(--ease);
+  }
+
+  .facade:hover .play {
+    transform: scale(1.05);
+  }
+
+  .empty {
+    align-content: center;
+    gap: 0.9rem;
+    color: rgb(247 248 223 / 0.8);
+  }
+
+  .player :global(.play-mark) {
+    width: 2.2em;
+  }
+</style>

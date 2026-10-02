@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Section from '../../components/Section.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import { site } from '../../config/site';
+---
+
+<BaseLayout
+  title="Contact"
+  description="Got a brand, a briefing or just an idea? Get in touch with Ongoing Media in Amsterdam."
+  headerTone="plum"
+>
+  <PageHero tone="plum" eyebrow="contact" bold="let’s" italic="talk" intro="Got a brand, a briefing or just an idea? Tell us what is going on." />
+
+  <Section tone="plum" continued>
+    <div class="container contact-grid">
+      <div class="form-wrap">
+        <h2 class="visually-hidden">Send us a message</h2>
+        <ContactForm />
+      </div>
+
+      <aside class="details" aria-label="Contact details">
+        <div>
+          <h2>say hi</h2>
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+        </div>
+        <div>
+          <h2>visit</h2>
+          <address>
+            {site.address.street}<br />
+            {site.address.postalCode} {site.address.city}<br />
+            {site.address.country}
+          </address>
+        </div>
+      </aside>
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .contact-grid {
+    display: grid;
+    gap: 3.5rem;
+  }
+
+  .details {
+    display: grid;
+    align-content: start;
+    gap: 2rem;
+  }
+
+  .details h2 {
+    font-size: var(--text-sm);
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--line);
+    margin-bottom: 0.5rem;
+  }
+
+  .details a {
+    font-size: var(--text-lg);
+    text-underline-offset: 0.2em;
+  }
+
+  address {
+    font-style: normal;
+    font-size: var(--text-lg);
+    line-height: 1.4;
+  }
+
+  @media (min-width: 60rem) {
+    .contact-grid {
+      grid-template-columns: 1.4fr 1fr;
+      gap: 6rem;
+    }
+  }
+</style>

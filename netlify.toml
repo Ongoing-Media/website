@@ -16,6 +16,9 @@
     X-Frame-Options = "DENY"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Strict-Transport-Security = "max-age=31536000"
+    # Alleen eigen code, het lettertype van Adobe Fonts en video's van Vimeo mogen laden.
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' https://use.typekit.net https://p.typekit.net; font-src 'self' https://use.typekit.net; img-src 'self' data: https://p.typekit.net; frame-src https://player.vimeo.com; connect-src 'self'; form-action 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests"
 
 # Bestanden in /_astro/ hebben een unieke naam per versie en mogen dus lang bewaard worden.
 [[headers]]

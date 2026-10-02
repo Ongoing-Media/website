@@ -1,0 +1,29 @@
+---
+export type Tone = 'plum' | 'brown' | 'white' | 'cream' | 'lime';
+
+interface Props {
+  tone?: Tone;
+  id?: string;
+  class?: string;
+  labelledby?: string;
+  /** Sluit direct aan op het blok erboven (geen ruimte aan de bovenkant). */
+  continued?: boolean;
+}
+
+const { tone = 'white', id, class: className, labelledby, continued = false } = Astro.props;
+---
+
+<section id={id} data-tone={tone} aria-labelledby={labelledby} class:list={['section', { continued }, className]}>
+  <slot />
+</section>
+
+<style>
+  .section {
+    position: relative;
+    padding-block: var(--section-space);
+  }
+
+  .continued {
+    padding-top: 0;
+  }
+</style>

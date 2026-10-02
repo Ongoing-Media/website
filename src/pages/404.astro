@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ButtonLink from '../components/ButtonLink.astro';
+import { routes } from '../config/routes';
+---
+
+<BaseLayout title="Page not found" description="This page doesn’t exist (anymore)." headerTone="plum" noindex>
+  <PageHero tone="plum" eyebrow="404" bold="what is" italic="going on?" intro="This page doesn’t exist (anymore). Let’s get you back on track.">
+    <div>
+      <ButtonLink href={routes.home}>back to home</ButtonLink>
+    </div>
+  </PageHero>
+</BaseLayout>

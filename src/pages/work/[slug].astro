@@ -1,0 +1,167 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Section from '../../components/Section.astro';
+import VimeoPlayer from '../../components/VimeoPlayer.astro';
+import ButtonLink from '../../components/ButtonLink.astro';
+import CallToAction from '../../components/CallToAction.astro';
+import { cases, nextCase, type CaseStudy } from '../../data/cases';
+import { caseRoute, routes } from '../../config/routes';
+
+export function getStaticPaths() {
+  return cases.map((item) => ({ params: { slug: item.slug }, props: { item } }));
+}
+
+interface Props {
+  item: CaseStudy;
+}
+
+const { item } = Astro.props;
+const next = nextCase(item.slug);
+// Zonder video's toch één nette plek tonen, zodat zichtbaar is waar de video komt.
+const videoSlots = item.videos.length > 0 ? item.videos : [undefined];
+---
+
+<BaseLayout title={`${item.title} · ${item.client}`} description={item.summary} headerTone="plum" noindex={item.placeholder}>
+  <PageHero tone="plum" eyebrow={item.client} bold={item.title} intro={item.summary}>
+    {item.placeholder && <p class="badge">example case · real case coming soon</p>}
+  </PageHero>
+
+  <Section tone="white">
+    <div class="container case-grid">
+      <div class:list={['videos', item.videoFormat]}>
+        {videoSlots.map((video, index) => (
+          <VimeoPlayer video={video} title={`${item.title}, video ${index + 1}`} format={item.videoFormat} />
+        ))}
+      </div>
+
+      <div class="details">
+        <div class="prose">
+          {item.body.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+
+        {
+          item.stats.length > 0 && (
+            <dl class="stats">
+              {item.stats.map((stat) => (
+                <div>
+                  <dt>{stat.label}</dt>
+                  <dd>{stat.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )
+        }
+
+        <div class="services">
+          <h2>what we did</h2>
+          <ul>
+            {item.services.map((service) => <li>{service}</li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="cream">
+    <div class="container more">
+      <ButtonLink href={routes.work} variant="outline">all work</ButtonLink>
+      {next && <ButtonLink href={caseRoute(next.slug)}>next: {next.title}</ButtonLink>}
+    </div>
+  </Section>
+
+  <CallToAction />
+</BaseLayout>
+
+<style>
+  .badge {
+    justify-self: start;
+    padding: 0.35em 1em;
+    border-radius: var(--radius-pill);
+    background: var(--color-lime);
+    color: var(--color-plum);
+    font-size: var(--text-sm);
+    font-style: italic;
+  }
+
+  .case-grid {
+    display: grid;
+    gap: 3rem;
+  }
+
+  .videos {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .videos.vertical {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+  }
+
+  .details {
+    display: grid;
+    align-content: start;
+    gap: 2.5rem;
+  }
+
+  .stats {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: 1.5rem;
+  }
+
+  .stats dt {
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .stats dd {
+    margin: 0;
+    order: -1;
+    font-size: var(--text-xl);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+  }
+
+  .stats div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .services h2 {
+    font-size: var(--text-lg);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+
+  .services ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .services li {
+    padding: 0.3em 1em;
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius-pill);
+    font-size: var(--text-sm);
+  }
+
+  .more {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  @media (min-width: 60rem) {
+    .case-grid {
+      grid-template-columns: 1.2fr 1fr;
+    }
+  }
+</style>

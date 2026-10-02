@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Section from '../components/Section.astro';
+import { site } from '../config/site';
+import { routes } from '../config/routes';
+---
+
+<BaseLayout title="Privacy policy" description="How Ongoing Media handles your personal data." headerTone="white">
+  <PageHero tone="white" eyebrow="privacy" bold="privacy" italic="policy" intro="Short and clear: what we collect, why, and what your rights are." />
+
+  <Section tone="white" continued>
+    <div class="container prose">
+      <h2>Who we are</h2>
+      <p>
+        {site.name}, {site.address.street}, {site.address.postalCode} {site.address.city}, {site.address.country}, is responsible
+        for the processing of personal data through this website. Questions? Email us at
+        <a href={`mailto:${site.email}`}>{site.email}</a>.
+      </p>
+
+      <h2>What we collect</h2>
+      <p>
+        When you use our <a href={routes.contact}>contact form</a>, we receive your name, email address, company (if you fill it in)
+        and your message. We use this only to reply to you and to follow up on your request. We keep it as long as needed for
+        that, and no longer than two years after our last contact, unless we start working together.
+      </p>
+      <p>
+        Our website is hosted by Netlify, which also processes the form for us. Netlify may process data outside the European
+        Union; this is covered by the European Commission’s standard contractual clauses.
+      </p>
+
+      <h2>No tracking cookies</h2>
+      <p>
+        This website does not use analytics or advertising cookies, and we don’t track you across websites.
+      </p>
+
+      <h2>Fonts and videos</h2>
+      <ul>
+        <li>
+          Our fonts are loaded from Adobe Fonts. To deliver them, Adobe receives your IP address, as with any website you
+          visit. Adobe does not set cookies for this.
+        </li>
+        <li>
+          Videos are hosted on Vimeo. A video only loads when you click play, and we ask Vimeo not to track you (“do not
+          track”). Once you play a video, Vimeo’s own privacy policy applies.
+        </li>
+      </ul>
+
+      <h2>Your rights</h2>
+      <p>
+        You have the right to access, correct or delete your personal data, to object to its use and to receive a copy. Send
+        your request to <a href={`mailto:${site.email}`}>{site.email}</a>. If you’re not satisfied with how we handle your data,
+        you can file a complaint with the Dutch Data Protection Authority (Autoriteit Persoonsgegevens).
+      </p>
+
+      <p class="updated">Last updated: October 2026</p>
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .updated {
+    color: var(--muted);
+    font-size: var(--text-sm);
+    margin-top: 1.5rem;
+  }
+</style>

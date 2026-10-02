@@ -1,39 +1,247 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { site } from '../config/site';
+import Section from '../components/Section.astro';
+import SplitHeading from '../components/SplitHeading.astro';
+import ButtonLink from '../components/ButtonLink.astro';
+import Photo from '../components/Photo.astro';
+import OnRepeat from '../components/OnRepeat.astro';
+import PillarGrid from '../components/PillarGrid.astro';
+import CaseCard from '../components/CaseCard.astro';
+import CallToAction from '../components/CallToAction.astro';
+import { cases } from '../data/cases';
+import { routes } from '../config/routes';
 
-const tagline = 'coming soon';
+import walkingBlur from '../assets/images/walking-blur.jpg';
+import steelRoom from '../assets/images/steel-room.jpg';
+import chairLaptop from '../assets/images/chair-laptop.jpg';
+import studioTable from '../assets/images/studio-table.jpg';
+import streetMotion from '../assets/images/street-motion.jpg';
+
+const featuredCases = cases.slice(0, 3);
 ---
 
-<BaseLayout title={tagline}>
-  <main>
-    <h1>{site.name}</h1>
-    <p>{tagline}</p>
-  </main>
+<BaseLayout title="Influencer marketing agency in Amsterdam" headerTone="plum">
+  <Section tone="plum" class="hero" labelledby="hero-heading">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <p class="eyebrow">influencer marketing agency · amsterdam</p>
+        <h1 id="hero-heading" class="hero-heading">
+          <span>we turn behavior into strategy,</span>
+          <span>creators into momentum,</span>
+          <span class="soft">and attention into impact.</span>
+        </h1>
+        <ButtonLink href={routes.work}>see our work</ButtonLink>
+      </div>
+      <div class="hero-photos">
+        <Photo src={steelRoom} alt="" sizes="(min-width: 60rem) 22vw, 45vw" priority class="photo photo-a" />
+        <Photo src={walkingBlur} alt="" sizes="(min-width: 60rem) 18vw, 38vw" priority class="photo photo-b" />
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="white" labelledby="about-heading">
+    <div class="container about-grid">
+      <div class="about-text">
+        <SplitHeading id="about-heading" bold="hi! we are" italic="ongoing media" stacked />
+        <p class="lead">
+          An Amsterdam-based influencer marketing agency. We deliver content that earns its place in the feed, and its way
+          into the conversation offline.
+        </p>
+        <ButtonLink href={routes.about} variant="outline">more about us</ButtonLink>
+      </div>
+      <Photo src={chairLaptop} alt="A laptop on a white chair in a studio" sizes="(min-width: 60rem) 25vw, 60vw" class="photo about-a" />
+      <Photo src={studioTable} alt="Prints and objects laid out on a long black table" sizes="(min-width: 60rem) 28vw, 70vw" class="photo about-b" />
+    </div>
+  </Section>
+
+  <Section tone="cream" labelledby="partner-heading">
+    <div class="container stack">
+      <SplitHeading id="partner-heading" bold="we are your" italic="partner in" stacked />
+    </div>
+    <div class="repeat">
+      <OnRepeat />
+    </div>
+    <div class="container stack">
+      <PillarGrid />
+      <ButtonLink href={routes.whatWeDo}>what we do</ButtonLink>
+    </div>
+  </Section>
+
+  <section class="statement" aria-labelledby="statement-heading">
+    <Photo src={streetMotion} alt="" sizes="100vw" widths={[640, 960, 1280, 1600]} class="statement-photo" />
+    <div class="container statement-text">
+      <h2 id="statement-heading">we move beyond the feed</h2>
+      <p class="lead">Where the right people, at the right moment, move culture forward.</p>
+    </div>
+  </section>
+
+  <Section tone="brown" labelledby="work-heading">
+    <div class="container stack">
+      <SplitHeading id="work-heading" bold="our" italic="work" />
+      <div class="cases">
+        {featuredCases.map((item) => <CaseCard item={item} />)}
+      </div>
+      <ButtonLink href={routes.work}>all work</ButtonLink>
+    </div>
+  </Section>
+
+  <CallToAction />
 </BaseLayout>
 
 <style>
-  main {
-    min-height: 100vh;
+  .hero {
+    padding-block: clamp(2rem, 6vw, 5rem) clamp(4rem, 10vw, 8rem);
+    overflow: hidden;
+  }
+
+  .hero-grid {
     display: grid;
-    place-content: center;
-    gap: 0.75rem;
-    padding: 1.5rem;
-    text-align: center;
+    gap: 3rem;
   }
 
-  h1 {
-    margin: 0;
-    font-size: clamp(2.25rem, 8vw, 5rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
+  .hero-text {
+    display: grid;
+    justify-items: start;
+    gap: clamp(1.5rem, 4vw, 2.5rem);
   }
 
-  p {
-    margin: 0;
-    font-size: clamp(0.875rem, 2.5vw, 1.125rem);
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    opacity: 0.7;
+  .hero-heading {
+    font-size: clamp(2.6rem, 1rem + 7vw, 7.5rem);
+    color: var(--accent);
+  }
+
+  .hero-heading span {
+    display: block;
+  }
+
+  .hero-heading .soft {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--fg);
+  }
+
+  .hero-photos {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .hero-photos :global(.photo-b) {
+    margin-top: 30%;
+  }
+
+  :global(.photo) img,
+  .statement :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .about-grid {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  .about-text {
+    display: grid;
+    justify-items: start;
+    gap: 1.75rem;
+  }
+
+  .about-grid :global(.about-a) {
+    width: 70%;
+  }
+
+  .about-grid :global(.about-b) {
+    width: 80%;
+    justify-self: end;
+  }
+
+  .stack {
+    display: grid;
+    justify-items: start;
+    gap: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  .stack > :global(*:not(a)) {
+    justify-self: stretch;
+  }
+
+  .repeat {
+    margin-block: clamp(2.5rem, 6vw, 4.5rem);
+  }
+
+  .statement {
+    position: relative;
+    display: grid;
+    min-height: min(90vh, 52rem);
+    color: var(--color-white);
+    background: var(--color-brown);
+    overflow: hidden;
+  }
+
+  .statement :global(.statement-photo) {
+    position: absolute;
+    inset: 0;
+  }
+
+  .statement::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgb(47 13 5 / 0.85), rgb(47 13 5 / 0.1) 60%);
+  }
+
+  .statement-text {
+    position: relative;
+    z-index: 1;
+    align-self: end;
+    display: grid;
+    gap: 1.25rem;
+    padding-block: clamp(3rem, 8vw, 6rem);
+  }
+
+  .statement h2 {
+    font-size: var(--text-3xl);
+    color: var(--color-lime);
+    max-width: 10ch;
+  }
+
+  .cases {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 40rem) {
+    .cases {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 60rem) {
+    .hero-grid {
+      grid-template-columns: 1.5fr 1fr;
+      align-items: center;
+    }
+
+    .about-grid {
+      grid-template-columns: 1.1fr 0.8fr 1fr;
+      align-items: end;
+    }
+
+    .about-grid :global(.about-a) {
+      width: 100%;
+      align-self: start;
+    }
+
+    .about-grid :global(.about-b) {
+      width: 100%;
+    }
+
+    .cases {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 </style>

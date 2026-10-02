@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { buildPageTitle } from '../src/lib/pageTitle';
 
 describe('buildPageTitle', () => {
-  it('combineert sitenaam en paginatitel', () => {
-    expect(buildPageTitle('Ongoing Media', 'coming soon')).toBe('Ongoing Media — coming soon');
+  it('zet de paginanaam vóór de sitenaam', () => {
+    expect(buildPageTitle('Ongoing Media', 'Work')).toBe('Work — Ongoing Media');
   });
 
   it('geeft alleen de sitenaam zonder paginatitel', () => {
