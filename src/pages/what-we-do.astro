@@ -38,11 +38,11 @@ import studioTable from '../assets/images/studio-table.jpg';
 
   <Section tone="brown" labelledby="channels-heading">
     <div class="container channels-grid">
-      <div class="channels-intro">
+      <div class="channels-intro" data-motion="reveal">
         <SplitHeading id="channels-heading" bold="earned, owned" italic="& paid" stacked />
         <p class="lead">We operate across all channels, with the media strategy that fits your objectives.</p>
       </div>
-      <ul class="channels">
+      <ul class="channels" data-motion="stagger">
         {
           channels.map((channel) => (
             <li>
@@ -59,7 +59,7 @@ import studioTable from '../assets/images/studio-table.jpg';
   <Section tone="cream" labelledby="process-heading">
     <div class="container process">
       <SplitHeading id="process-heading" bold="our way" italic="of working" />
-      <ol class="steps">
+      <ol class="steps" data-motion="stagger">
         {
           processSteps.map((step, index) => (
             <li>

@@ -22,10 +22,16 @@ const { tone, bold, italic, eyebrow, intro, image } = Astro.props;
     <div class="text">
       {eyebrow && <p class="eyebrow">{eyebrow}</p>}
       <SplitHeading level={1} size="3xl" bold={bold} italic={italic} stacked />
-      {intro && <p class="lead">{intro}</p>}
+      {intro && <p class="lead" data-motion="intro-late">{intro}</p>}
       <slot />
     </div>
-    {image && <Photo src={image.src} alt={image.alt} sizes="(min-width: 60rem) 30vw, 80vw" priority class="hero-photo" />}
+    {
+      image && (
+        <div class="hero-photo-wrap" data-motion="drift">
+          <Photo src={image.src} alt={image.alt} sizes="(min-width: 60rem) 30vw, 80vw" priority motion="none" class="hero-photo" />
+        </div>
+      )
+    }
   </div>
 </Section>
 
@@ -40,7 +46,7 @@ const { tone, bold, italic, eyebrow, intro, image } = Astro.props;
     gap: clamp(1.5rem, 4vw, 2.5rem);
   }
 
-  .hero :global(.hero-photo) {
+  .hero-photo-wrap {
     width: min(80%, 22rem);
     justify-self: end;
   }
@@ -53,6 +59,10 @@ const { tone, bold, italic, eyebrow, intro, image } = Astro.props;
     .with-image {
       grid-template-columns: 1.4fr 1fr;
       align-items: start;
+    }
+
+    .with-image .text {
+      padding-top: clamp(2rem, 5vw, 5rem);
     }
   }
 </style>

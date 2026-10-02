@@ -15,9 +15,11 @@ interface Props {
 const { bold, italic, level = 2, size = '2xl', stacked = false, id, class: className } = Astro.props;
 const Tag = `h${level}` as const;
 const hasAside = Boolean(italic) || Astro.slots.has('aside');
+// Paginatitel (h1, op twee regels) komt bij het laden regel voor regel binnen; andere koppen bij het scrollen.
+const motion = level === 1 && stacked ? 'intro' : 'reveal';
 ---
 
-<Tag id={id} class:list={['split-heading', `size-${size}`, { stacked }, className]}>
+<Tag id={id} class:list={['split-heading', `size-${size}`, { stacked }, className]} data-motion={motion}>
   <span class="bold">{bold}</span>{hasAside && ' '}{
     hasAside && (
       <span class="italic">
@@ -53,6 +55,10 @@ const hasAside = Boolean(italic) || Astro.slots.has('aside');
     font-weight: 300;
     letter-spacing: -0.035em;
     color: var(--accent);
+  }
+
+  .stacked .bold {
+    display: inline-block;
   }
 
   .stacked .italic {

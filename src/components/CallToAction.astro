@@ -9,7 +9,7 @@ import { site } from '../config/site';
 <Section tone="lime" labelledby="cta-heading">
   <div class="container cta">
     <SplitHeading id="cta-heading" bold="let’s talk" italic="what is going on?" stacked />
-    <div class="actions">
+    <div class="actions" data-motion="reveal">
       <p class="lead">Got a brand, a briefing or just an idea? We’d love to hear about it.</p>
       <ButtonLink href={routes.contact}>get in touch</ButtonLink>
       <a class="mail" href={`mailto:${site.email}`}>{site.email}</a>

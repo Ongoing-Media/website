@@ -16,15 +16,15 @@ import { site } from '../../config/site';
     <div class="container layout">
       <div class="intro">
         <SplitHeading level={1} bold="let’s talk" italic="what is going on?" stacked />
-        <p class="lead">Got a brand, a briefing or just an idea? Send us a message and we’ll get back to you soon.</p>
+        <p class="lead" data-motion="intro-late">Got a brand, a briefing or just an idea? Send us a message and we’ll get back to you soon.</p>
       </div>
 
-      <div class="form-card" data-tone="cream">
+      <div class="form-card" data-tone="cream" data-motion="intro-late">
         <h2 class="form-title">send us a message</h2>
         <ContactForm />
       </div>
 
-      <aside class="details" aria-label="Contact details">
+      <aside class="details" aria-label="Contact details" data-motion="intro-late">
         <div>
           <h2>say hi</h2>
           <a href={`mailto:${site.email}`}>{site.email}</a>

@@ -223,3 +223,27 @@ describe('bestanden', () => {
     for (const src of used) expect(statSync(join(dist, src)).size, src).toBeLessThan(200 * 1024);
   });
 });
+
+describe('animaties', () => {
+  const css = allFiles(join(dist, '_astro'))
+    .filter((file) => file.endsWith('.css'))
+    .map((file) => readFileSync(file, 'utf8'))
+    .join('\n');
+
+  it('gebruikt animaties op de pagina’s', () => {
+    const home = page(pages.home);
+    for (const motion of ['intro', 'reveal', 'stagger', 'drift', 'zoom']) expect(home).toContain(`data-motion="${motion}"`);
+    expect(page(pages.about)).toContain('<picture class="photo" data-motion="image">');
+  });
+
+  it('respecteert "minder beweging" en browsers zonder scroll-animaties', () => {
+    expect(css).toContain('@media (prefers-reduced-motion:no-preference)');
+    expect(css).toContain('@supports (animation-timeline:view())');
+  });
+
+  it('zet de scroll-tijdlijn nooit in de "animation"-verkorting (die browsers niet begrijpen)', () => {
+    expect(css).toMatch(/animation-timeline:view\(\)[;}]/);
+    expect(css).toMatch(/animation-timeline:scroll\(root\)[;}]/);
+    expect(css).not.toMatch(/animation:[^;}]*(?:view|scroll)\(/);
+  });
+});
