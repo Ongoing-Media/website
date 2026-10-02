@@ -169,7 +169,7 @@ describe('menu en footer', () => {
     expect(html).toContain('href="https://www.instagram.com/ongoing.nl/"');
     expect(html).toContain('href="https://www.tiktok.com/@ongoingmedia.nl"');
     expect(html).toContain('href="https://www.linkedin.com/company/ongoing-media/"');
-    expect(html).toMatch(/class="label"[^>]*>social</);
+    expect(html).toMatch(/class="label"[^>]*>socials</);
     expect(html).toContain('Herengracht 501');
     expect(html).toContain('1017 BV Amsterdam');
     expect(html).not.toContain('Keizersgracht');
@@ -211,9 +211,26 @@ describe('about', () => {
     expect(h1).toContain('<rect class="cursor"');
   });
 
+  it('noemt "Ongoing Media" (in groen, vet) in het oprichtersverhaal', () => {
+    expect(html).toMatch(/what <strong[^>]*>Ongoing Media<\/strong> is built on/);
+  });
+
   it('vertelt het verhaal van de oprichters', () => {
     for (const name of ['Chantal Janzen', 'Marco Geeratz', 'Michelle de Vroed', '&amp;C']) expect(html).toContain(name);
     expect(html).not.toContain('Geerats');
+  });
+});
+
+describe("let's talk", () => {
+  it.each(Object.entries(pages).filter(([name]) => ['home', 'whatWeDo', 'about'].includes(name)))(
+    '%s: "We’d love to hear about it." begint op een nieuwe regel',
+    (_, path) => {
+      expect(page(path)).toMatch(/just an idea\?<br[^>]*>We’d love to hear about it\./);
+    },
+  );
+
+  it('contact: "Send us a message" begint op een nieuwe regel', () => {
+    expect(page(pages.contact)).toMatch(/just an idea\?<br[^>]*>Send us a message/);
   });
 });
 
@@ -222,7 +239,7 @@ describe('contact', () => {
     const html = page(pages.contact);
     const details = html.slice(html.indexOf('aria-label="Contact details"'), html.indexOf('</aside>'));
     expect(details).not.toContain('<picture');
-    expect(details).toMatch(/class="label"[^>]*>social</);
+    expect(details).toMatch(/class="label"[^>]*>socials</);
     for (const network of ['Instagram', 'TikTok', 'LinkedIn']) expect(details).toContain(`${network}: </span>`);
     expect(details.match(/<svg/g)).toHaveLength(3);
   });

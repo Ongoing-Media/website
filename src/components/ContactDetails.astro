@@ -23,7 +23,7 @@ const { class: className } = Astro.props;
     </address>
   </div>
   <div>
-    <p class="label">social</p>
+    <p class="label">socials</p>
     <SocialLinks />
   </div>
 </div>
@@ -38,6 +38,8 @@ const { class: className } = Astro.props;
   .label {
     margin-bottom: 0.3rem;
     font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
     font-size: var(--text-sm);
     color: var(--line);
   }
