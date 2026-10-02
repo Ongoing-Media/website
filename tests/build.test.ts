@@ -242,6 +242,15 @@ describe("let's talk", () => {
 describe('footer', () => {
   const html = page(pages.home);
 
+  it('toont de kopjes in kleine letters (geen hoofdletters via de opmaak)', () => {
+    const css = allFiles(join(dist, '_astro'))
+      .filter((file) => file.endsWith('.css'))
+      .map((file) => readFileSync(file, 'utf8'))
+      .join('\n');
+    const labelRule = css.match(/\.label\[data-astro-cid-[^\]]+\]\{[^}]*\}/)![0];
+    expect(labelRule).not.toContain('uppercase');
+  });
+
   it('heeft kopjes say hi, address en socials (en geen "visit")', () => {
     for (const label of ['say hi', 'address', 'socials']) expect(html).toMatch(new RegExp(`class="label"[^>]*>${label}<`));
     expect(html).not.toMatch(/class="label"[^>]*>visit</);
