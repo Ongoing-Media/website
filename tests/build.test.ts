@@ -239,6 +239,14 @@ describe("let's talk", () => {
   });
 });
 
+describe('who we are', () => {
+  it.each(Object.entries(pages))('%s: menu en footer zeggen "who we are" in plaats van "about"', (_, path) => {
+    const html = page(path);
+    expect(html.match(/<a href="\/about\/"[^>]*>who we are<\/a>/g)).toHaveLength(2);
+    expect(html).not.toMatch(/>\s*(?:more )?about(?: us)?\s*</i);
+  });
+});
+
 describe('footer', () => {
   const html = page(pages.home);
 

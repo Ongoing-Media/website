@@ -26,7 +26,7 @@ describe('diensten', () => {
 
 describe('routes', () => {
   it('het menu begint met home en heeft (nog) geen work', () => {
-    expect(mainNav.map((item) => item.label)).toEqual(['home', 'what we do', 'about', 'contact']);
+    expect(mainNav.map((item) => item.label)).toEqual(['home', 'what we do', 'who we are', 'contact']);
     expect(mainNav[0].href).toBe('/');
   });
 
