@@ -2,7 +2,7 @@
 export const routes = {
   home: '/',
   whatWeDo: '/what-we-do/',
-  about: '/about/',
+  whoWeAre: '/who-we-are/',
   contact: '/contact/',
   contactThanks: '/contact/thanks/',
   privacy: '/privacy/',
@@ -17,7 +17,7 @@ export interface NavItem {
 export const mainNav: readonly NavItem[] = [
   { label: 'home', href: routes.home },
   { label: 'what we do', href: routes.whatWeDo },
-  { label: 'who we are', href: routes.about },
+  { label: 'who we are', href: routes.whoWeAre },
   { label: 'contact', href: routes.contact },
 ];
 
@@ -25,7 +25,7 @@ export const mainNav: readonly NavItem[] = [
 export const indexableRoutes: readonly string[] = [
   routes.home,
   routes.whatWeDo,
-  routes.about,
+  routes.whoWeAre,
   routes.contact,
   routes.privacy,
   routes.terms,

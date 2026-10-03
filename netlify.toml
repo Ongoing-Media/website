@@ -9,6 +9,13 @@
   status = 301
   force = true
 
+# Het oude adres van "who we are" stuurt door naar het nieuwe (Netlify negeert de slash aan het eind).
+[[redirects]]
+  from = "/about"
+  to = "/who-we-are/"
+  status = 301
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]

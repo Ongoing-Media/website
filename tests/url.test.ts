@@ -3,7 +3,7 @@ import { absoluteUrl, isActivePath } from '../src/lib/url';
 
 describe('absoluteUrl', () => {
   it('maakt een volledig adres van een pad', () => {
-    expect(absoluteUrl('/about/', 'https://ongoingmedia.nl')).toBe('https://ongoingmedia.nl/about/');
+    expect(absoluteUrl('/who-we-are/', 'https://ongoingmedia.nl')).toBe('https://ongoingmedia.nl/who-we-are/');
   });
 });
 
@@ -17,15 +17,15 @@ describe('isActivePath', () => {
   });
 
   it('werkt ook zonder slash aan het eind', () => {
-    expect(isActivePath('/about', '/about/')).toBe(true);
+    expect(isActivePath('/who-we-are', '/who-we-are/')).toBe(true);
   });
 
   it('is niet actief op een andere pagina', () => {
-    expect(isActivePath('/about/', '/contact/')).toBe(false);
+    expect(isActivePath('/who-we-are/', '/contact/')).toBe(false);
   });
 
   it('home is alleen actief op de homepage zelf', () => {
     expect(isActivePath('/', '/')).toBe(true);
-    expect(isActivePath('/about/', '/')).toBe(false);
+    expect(isActivePath('/who-we-are/', '/')).toBe(false);
   });
 });

@@ -9,7 +9,7 @@ const page = (path: string) => readFileSync(join(dist, path), 'utf8');
 const pages = {
   home: 'index.html',
   whatWeDo: 'what-we-do/index.html',
-  about: 'about/index.html',
+  about: 'who-we-are/index.html',
   contact: 'contact/index.html',
   thanks: 'contact/thanks/index.html',
   privacy: 'privacy/index.html',
@@ -242,7 +242,7 @@ describe("let's talk", () => {
 describe('who we are', () => {
   it.each(Object.entries(pages))('%s: menu en footer zeggen "who we are" in plaats van "about"', (_, path) => {
     const html = page(path);
-    expect(html.match(/<a href="\/about\/"[^>]*>who we are<\/a>/g)).toHaveLength(2);
+    expect(html.match(/<a href="\/who-we-are\/"[^>]*>who we are<\/a>/g)).toHaveLength(2);
     expect(html).not.toMatch(/>\s*(?:more )?about(?: us)?\s*</i);
   });
 });
