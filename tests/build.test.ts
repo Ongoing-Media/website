@@ -9,7 +9,7 @@ const page = (path: string) => readFileSync(join(dist, path), 'utf8');
 const pages = {
   home: 'index.html',
   whatWeDo: 'what-we-do/index.html',
-  about: 'about/index.html',
+  whoWeAre: 'who-we-are/index.html',
   contact: 'contact/index.html',
   thanks: 'contact/thanks/index.html',
   privacy: 'privacy/index.html',
@@ -202,8 +202,8 @@ describe('what we do', () => {
   });
 });
 
-describe('about', () => {
-  const html = page(pages.about);
+describe('who we are-pagina', () => {
+  const html = page(pages.whoWeAre);
 
   it('toont "hi! we are" met het logo, waarvan het streepje knippert', () => {
     const h1 = html.match(/<h1[\s\S]*?<\/h1>/)![0];
@@ -227,7 +227,7 @@ describe('about', () => {
 });
 
 describe("let's talk", () => {
-  it.each(Object.entries(pages).filter(([name]) => ['home', 'whatWeDo', 'about'].includes(name)))(
+  it.each(Object.entries(pages).filter(([name]) => ['home', 'whatWeDo', 'whoWeAre'].includes(name)))(
     '%s: "We’d love to hear about it." begint op een nieuwe regel',
     (_, path) => {
       expect(page(path)).toMatch(/just an idea\?<br[^>]*>We’d love to hear about it\./);
@@ -236,6 +236,14 @@ describe("let's talk", () => {
 
   it('contact: "Send us a message" begint op een nieuwe regel', () => {
     expect(page(pages.contact)).toMatch(/just an idea\?<br[^>]*>Send us a message/);
+  });
+});
+
+describe('who we are', () => {
+  it.each(Object.entries(pages))('%s: menu en footer zeggen "who we are" in plaats van "about"', (_, path) => {
+    const html = page(path);
+    expect(html.match(/<a href="\/who-we-are\/"[^>]*>who we are<\/a>/g)).toHaveLength(2);
+    expect(html).not.toMatch(/>\s*(?:more )?about(?: us)?\s*</i);
   });
 });
 
@@ -337,7 +345,7 @@ describe('animaties', () => {
     const home = page(pages.home);
     for (const motion of ['intro', 'reveal', 'sequence', 'drift', 'zoom']) expect(home).toContain(`data-motion="${motion}"`);
     expect(page(pages.whatWeDo)).toContain('data-motion="stagger"');
-    expect(page(pages.about)).toMatch(/<picture[^>]*data-motion="image"/);
+    expect(page(pages.whoWeAre)).toMatch(/<picture[^>]*data-motion="image"/);
   });
 
   it('respecteert "minder beweging" en browsers zonder scroll-animaties', () => {

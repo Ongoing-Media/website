@@ -22,6 +22,11 @@ describe('repo', () => {
     }
   });
 
+  it('stuurt het oude adres /about naar /who-we-are/ door', () => {
+    const toml = readFileSync('netlify.toml', 'utf8');
+    expect(toml).toMatch(/from = "\/about"\s+to = "\/who-we-are\/"\s+status = 301/);
+  });
+
   it('bevat geen sleutels of wachtwoorden', () => {
     const text = files
       .filter((file) => /\.(ts|astro|mjs|js|json|toml|md|css)$/.test(file) && !file.endsWith('package-lock.json'))
