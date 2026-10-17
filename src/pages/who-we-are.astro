@@ -7,9 +7,9 @@ import Photo from '../components/Photo.astro';
 import CallToAction from '../components/CallToAction.astro';
 import { site } from '../config/site';
 
-import steelRoom from '../assets/images/steel-room.jpg';
-import walkingBlur from '../assets/images/walking-blur.jpg';
-import chairLaptop from '../assets/images/chair-laptop.jpg';
+import couchLaptops from '../assets/images/couch-laptops.jpg';
+import litWindows from '../assets/images/lit-windows.jpg';
+import crosswalkCreamCoat from '../assets/images/crosswalk-cream-coat.jpg';
 ---
 
 <BaseLayout
@@ -42,8 +42,8 @@ import chairLaptop from '../assets/images/chair-laptop.jpg';
         </p>
       </div>
       <div class="photos">
-        <Photo src={steelRoom} alt="" sizes="(min-width: 60rem) 18vw, 45vw" class="photo" />
-        <Photo src={walkingBlur} alt="" sizes="(min-width: 60rem) 16vw, 40vw" class="photo offset" />
+        <Photo src={couchLaptops} alt="" sizes="(min-width: 60rem) 18vw, 45vw" class="photo" />
+        <Photo src={litWindows} alt="" sizes="(min-width: 60rem) 16vw, 40vw" class="photo offset" />
       </div>
     </div>
   </Section>
@@ -89,7 +89,7 @@ import chairLaptop from '../assets/images/chair-laptop.jpg';
         </p>
         <p class="based">Based at {site.address.street}, {site.address.city}.</p>
       </div>
-      <Photo src={chairLaptop} alt="A laptop on a white chair in a studio" sizes="(min-width: 60rem) 18rem, 70vw" class="photo beyond-photo" />
+      <Photo src={crosswalkCreamCoat} alt="A woman in a cream coat crossing a busy street, the crowd blurring past her" sizes="(min-width: 60rem) 18rem, 70vw" class="photo beyond-photo" />
     </div>
   </Section>
 

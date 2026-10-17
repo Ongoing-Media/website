@@ -21,14 +21,15 @@ const {
   src,
   alt,
   sizes,
-  widths = [360, 540, 720, 960, 1280, 1600],
+  widths = [360, 540, 720, 960, 1280],
   priority = false,
   motion = 'image',
   fit = 'natural',
   class: className,
 } = Astro.props;
-// Nooit groter maken dan het origineel.
-const usableWidths = [...new Set([...widths.filter((w) => w < src.width), Math.min(src.width, Math.max(...widths))])];
+// Nooit groter maken dan het origineel. Ook het <img> zelf (dat browsers als laatste kiezen) wordt niet groter.
+const largest = Math.min(src.width, Math.max(...widths));
+const usableWidths = [...new Set([...widths.filter((w) => w < largest), largest])];
 ---
 
 <Picture
@@ -36,7 +37,9 @@ const usableWidths = [...new Set([...widths.filter((w) => w < src.width), Math.m
   alt={alt}
   sizes={sizes}
   widths={usableWidths}
+  width={largest}
   formats={['webp']}
+  fallbackFormat="webp"
   quality={72}
   loading={priority ? 'eager' : 'lazy'}
   fetchpriority={priority ? 'high' : 'auto'}

@@ -27,6 +27,17 @@ describe('repo', () => {
     expect(toml).toMatch(/from = "\/about"\s+to = "\/who-we-are\/"\s+status = 301/);
   });
 
+  // Alleen foto's waar we de rechten van hebben: wat niet meer op de site staat, hoort ook niet in de repo.
+  it('bevat alleen foto’s die op een pagina gebruikt worden', () => {
+    const photos = files.filter((file) => file.startsWith('src/assets/images/'));
+    const code = files
+      .filter((file) => /^src\/.*\.(astro|ts)$/.test(file))
+      .map((file) => readFileSync(file, 'utf8'))
+      .join('\n');
+    expect(photos.length).toBeGreaterThan(0);
+    for (const photo of photos) expect(code, photo).toContain(`assets/images/${photo.split('/').pop()}`);
+  });
+
   it('bevat geen sleutels of wachtwoorden', () => {
     const text = files
       .filter((file) => /\.(ts|astro|mjs|js|json|toml|md|css)$/.test(file) && !file.endsWith('package-lock.json'))

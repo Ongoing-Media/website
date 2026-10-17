@@ -10,11 +10,14 @@ import PillarGrid from '../components/PillarGrid.astro';
 import CallToAction from '../components/CallToAction.astro';
 import { routes } from '../config/routes';
 
-import walkingBlur from '../assets/images/walking-blur.jpg';
-import steelRoom from '../assets/images/steel-room.jpg';
-import chairLaptop from '../assets/images/chair-laptop.jpg';
-import studioTable from '../assets/images/studio-table.jpg';
-import streetMotion from '../assets/images/street-motion.jpg';
+import metroWindow from '../assets/images/metro-window.jpg';
+import flutedGlassPlum from '../assets/images/fluted-glass-plum.jpg';
+import couchLaptops from '../assets/images/couch-laptops.jpg';
+import litWindows from '../assets/images/lit-windows.jpg';
+import crosswalkSunlight from '../assets/images/crosswalk-sunlight.jpg';
+
+// De hero-foto's staan klein in beeld; grotere bestanden zijn niet nodig.
+const heroWidths = [360, 540, 720];
 ---
 
 <BaseLayout headerTone="plum">
@@ -33,10 +36,10 @@ import streetMotion from '../assets/images/street-motion.jpg';
       </div>
       <div class="hero-photos">
         <div data-motion="drift">
-          <Photo src={steelRoom} alt="" sizes="(min-width: 60rem) 22vw, 45vw" priority motion="none" class="photo" />
+          <Photo src={metroWindow} alt="" sizes="(min-width: 60rem) 22vw, 45vw" widths={heroWidths} priority motion="none" class="photo" />
         </div>
         <div class="photo-b" data-motion="drift-fast">
-          <Photo src={walkingBlur} alt="" sizes="(min-width: 60rem) 18vw, 38vw" motion="none" class="photo" />
+          <Photo src={flutedGlassPlum} alt="" sizes="(min-width: 60rem) 18vw, 38vw" widths={heroWidths} motion="none" class="photo" />
         </div>
       </div>
     </div>
@@ -54,8 +57,8 @@ import streetMotion from '../assets/images/street-motion.jpg';
         </p>
         <Button href={routes.whoWeAre} variant="outline">who we are</Button>
       </div>
-      <Photo src={chairLaptop} alt="A laptop on a white chair in a studio" sizes="(min-width: 60rem) 25vw, 60vw" class="photo about-a" />
-      <Photo src={studioTable} alt="Prints and objects laid out on a long black table" sizes="(min-width: 60rem) 28vw, 70vw" class="photo about-b" />
+      <Photo src={couchLaptops} alt="A woman on a black leather couch, surrounded by laptops, checking her phone" sizes="(min-width: 60rem) 25vw, 60vw" class="photo about-a" />
+      <Photo src={litWindows} alt="A building at night, with everyday life going on behind every lit window" sizes="(min-width: 60rem) 28vw, 70vw" class="photo about-b" />
     </div>
   </Section>
 
@@ -71,7 +74,7 @@ import streetMotion from '../assets/images/street-motion.jpg';
   </Section>
 
   <section class="statement" aria-labelledby="statement-heading">
-    <Photo src={streetMotion} alt="" sizes="100vw" widths={[640, 960, 1280, 1600]} motion="zoom" fit="cover" class="statement-photo" />
+    <Photo src={crosswalkSunlight} alt="" sizes="100vw" widths={[640, 960, 1280]} motion="zoom" fit="cover" class="statement-photo" />
     <div class="container statement-text">
       <h2 id="statement-heading" data-motion="reveal">we move beyond the feed</h2>
       <p class="lead" data-motion="reveal">Where the right people, at the right moment, move culture forward.</p>
