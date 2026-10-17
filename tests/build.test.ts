@@ -35,7 +35,7 @@ describe('alle pagina’s', () => {
 
   it.each(Object.entries(pages))('%s heeft social share-gegevens en favicons', (_, path) => {
     const html = page(path);
-    expect(html).toContain('<meta property="og:image" content="https://ongoingmedia.nl/og-image.jpg">');
+    expect(html).toContain('<meta property="og:image" content="https://ongoingmedia.nl/share-image.jpg">');
     expect(html).toContain('<meta name="twitter:card" content="summary_large_image">');
     expect(html).toContain('href="/favicon.svg"');
     expect(html).toContain('href="/apple-touch-icon.png"');
@@ -322,7 +322,7 @@ describe('bestanden', () => {
   });
 
   it('heeft alle favicon-formaten', () => {
-    for (const file of ['favicon.ico', 'favicon.svg', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png', 'og-image.jpg']) {
+    for (const file of ['favicon.ico', 'favicon.svg', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png', 'share-image.jpg']) {
       expect(existsSync(join(dist, file)), file).toBe(true);
     }
   });

@@ -19,7 +19,7 @@ export const site = {
     { id: 'tiktok', label: 'TikTok', handle: '@ongoingmedia.nl', url: 'https://www.tiktok.com/@ongoingmedia.nl' },
     { id: 'linkedin', label: 'LinkedIn', handle: 'Ongoing Media', url: 'https://www.linkedin.com/company/ongoing-media/' },
   ],
-  shareImage: { path: '/og-image.jpg', width: 1200, height: 630 },
+  shareImage: { path: '/share-image.jpg', width: 1200, height: 630 },
   themeColor: '#41192a',
   // Adobe Fonts-kit met Helvetica LT Pro (de licentie loopt via Adobe; de link mag publiek zijn).
   fontStylesheet: 'https://use.typekit.net/rxa1hlv.css',
