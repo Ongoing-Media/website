@@ -27,8 +27,9 @@ const {
   fit = 'natural',
   class: className,
 } = Astro.props;
-// Nooit groter maken dan het origineel. Ook de reserve-afbeelding (voor oude browsers) blijft zo klein.
-const usableWidths = [...new Set([...widths.filter((w) => w < src.width), Math.min(src.width, Math.max(...widths))])];
+// Nooit groter maken dan het origineel. Ook het <img> zelf (dat browsers als laatste kiezen) wordt niet groter.
+const largest = Math.min(src.width, Math.max(...widths));
+const usableWidths = [...new Set([...widths.filter((w) => w < largest), largest])];
 ---
 
 <Picture
@@ -36,7 +37,7 @@ const usableWidths = [...new Set([...widths.filter((w) => w < src.width), Math.m
   alt={alt}
   sizes={sizes}
   widths={usableWidths}
-  width={Math.max(...usableWidths)}
+  width={largest}
   formats={['webp']}
   fallbackFormat="webp"
   quality={72}
